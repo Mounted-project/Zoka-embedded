@@ -1,5 +1,7 @@
 constexpr uint8_t MCP23017_ADDR = 0x20;
-constexpr uint8_t BQ2429X_ADDR = 0x6B;
+constexpr uint8_t MAX17048_ADDR = 0x36;
+constexpr uint8_t BQ24296_ADDR = 0x6B;
+
 
 // MCP23017 BANK A
 constexpr uint8_t ENABLE_1_8V = 0;

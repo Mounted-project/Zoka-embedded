@@ -1,8 +1,8 @@
 
 #include <Arduino.h>
 #include "MCP23017.h"
-#include <bq2429x.h>
-#include "MAX17048.h"
+#include "bq24296m.h"
+#include "../lib/MAX17048/MAX17048.h"
 #include <Adafruit_VCNL4040.h>
 #include <LIS2DW12Sensor.h>
 
@@ -23,11 +23,11 @@ void setup()
 
   Wire.begin(I2C_SDA, I2C_SCL, 100000);
   MCP23017 MCP = MCP23017 (MCP23017_ADDR, Wire);
-  bq2429x BQ = bq2429x(BQ2429X_ADDR,Wire);
-  MAX17048 pwr_mgmt;
+  BQ24296M bq24296m = BQ24296M (BQ24296_ADDR, Wire);
+  MAX17048 max17048 = MAX17048 (0x36, Wire);
   // Adafruit_VCNL4040 vcnl4040 = Adafruit_VCNL4040();
 //  
-  // pwr_mgmt.attatch(&i2c);
+  // MAX17048.attatch(&i2c);
   // Serial.println("\nI2C Scanner");
   // Serial.println("\nI2C Scanner 1");
   // scanI2C();
@@ -60,106 +60,50 @@ void setup()
   MCP.digitalWrite(LEDS_ENABLE,0);
   MCP.digitalWrite(ENABLE_10V,1);
   delay(5000);
-  BQ.setChargeCurrent(500);
-  BQ.setChargeVoltage(4000);
-  BQ.setInputCurrentLimit(1000);
-  BQ.setInputVoltageLimit(6000);
+  bool charge_enable = true; 
+  bq24296m.setWatchDogTimerStatus(WATCHDOG_DISABLE);
+  bq24296m.setInputControl(VINDPM_3880mV_OFFSET,IINLIM_500mA);
+  Serial.print(" Set Charge Enable: "); Serial.println(charge_enable, HEX); 
+  bq24296m.setChargeEnable(charge_enable); 
 
   // while(1){}
   while(1){
     delay(500);
     Serial.println("Device : BQ2429x");
+    bq24296m.setWatchDogTimerStatus(WATCHDOG_DISABLE);
+    SYSTEM_STATUS_REG status; 
+    status.raw = bq24296m.getStatus(); 
+    Serial.print(" VBUS_STAT : 0x"); Serial.println(status.vbus_stat, HEX); 
+    Serial.print(" CHRG_STAT : 0x"); Serial.println(status.chrg_stat, HEX); 
+    Serial.print(" DPM_STAT  : 0x"); Serial.println(status.chrg_stat, HEX); 
+    Serial.print(" PG_STAT   : 0x"); Serial.println(status.pg_stat, HEX); 
+    Serial.print(" THERM_STAT: 0x"); Serial.println(status.therm_stat, HEX); 
+    Serial.print(" VSYS_STAT : 0x"); Serial.println(status.vsys_stat, HEX); 
+    Serial.println("\n");
 
-    BQ.setChargeCurrent(500);
-    BQ.setChargeVoltage(4000);
-    BQ.setInputCurrentLimit(1000);
-    BQ.setInputVoltageLimit(6000);
-    uint8_t status = BQ.getStatus();
-    Serial.print("Status: 0b");
-    Serial.println(status,BIN);  // Gets BQ status
-        //Decode status:
-    uint8_t vbus_status = status >> 6;
-    Serial.print("Voltage input: ");
-    switch (vbus_status) {
-      case 0:
-        Serial.print("unknown");
-        break;
-      case 1:
-        Serial.print("USB");
-        break;
-      case 2:
-        Serial.print("non-standard USB");
-        break;
-      case 3:
-        Serial.print("OTG");
-        break;
-    }
-    Serial.println("");
+    NEW_FAULT_REG fault; 
+    fault.raw = bq24296m.getFaults(); 
+    Serial.print(" NTC_FAULT      : 0x"); Serial.println(fault.ntc_fault, HEX); 
+    Serial.print(" RSV_FAULT      : 0x"); Serial.println(fault.rsv, HEX); 
+    Serial.print(" BAT_FAULT      : 0x"); Serial.println(fault.bat_fault, HEX); 
+    Serial.print(" CHRG_FAULT     : 0x"); Serial.println(fault.chrg_fault, HEX); 
+    Serial.print(" OTG_FAULT      : 0x"); Serial.println(fault.otg_fault, HEX); 
+    Serial.print(" WATCHDOG_FAULT : 0x"); Serial.println(fault.watchdog_fault, HEX); 
+    delay(1000); 
 
-    uint8_t charge_status = (status&0b00110000) >> 4;
-    Serial.print("Charging status: ");
-      switch (charge_status) {
-      case 0:
-        Serial.print("not charging");
-        break;
-      case 1:
-        Serial.print("pre-charge");
-        break;
-      case 2:
-        Serial.print("fast charging");
-        break;
-      case 3:
-        Serial.print("charge termination");
-        break;
-    }
-    Serial.println("");
-    Serial.print("DPM_STAT: ");
-    Serial.print(bitRead(status, 3),HEX);
-    Serial.print(" PG_STAT: ");
-    Serial.print(bitRead(status, 2),HEX);
-    Serial.print(" THERM_STAT: ");
-    Serial.print(bitRead(status, 1),HEX);
-    Serial.print(" VSYS_STAT: ");
-    Serial.println(bitRead(status, 0),HEX);
-
-
-    uint8_t faults = BQ.getFaults();
-    Serial.print("Faults: 0b");
-    Serial.println(faults,BIN);  // Gets BQ status
-    
-    //Decode status:
-    uint8_t chg_fault = (faults&0b00110000) >> 4;
-    Serial.print("Charging fault: ");
-    switch (chg_fault) {
-      case 0:
-        Serial.print("none");
-        break;
-      case 1:
-        Serial.print("Input fault (OVP)");
-        break;
-      case 2:
-        Serial.print("Thermal shutdown");
-        break;
-      case 3:
-        Serial.print("Charge time exp.");
-        break;
-      }
-      Serial.println("");
-
-    Serial.print("WATCHDOG_FAULT: ");
-    Serial.print(bitRead(faults, 7),HEX);
-    Serial.print(" OTG_FAULT: ");
-    Serial.print(bitRead(faults, 6),HEX);
-    Serial.print(" BAT_FAULT: ");
-    Serial.print(bitRead(faults, 3),HEX);
-    Serial.print(" NTC_FAULT_1: ");
-    Serial.print(bitRead(faults, 1),HEX);
-    Serial.print(" NTC_FAULT_0: ");
-    Serial.println(bitRead(faults, 0),HEX);
-
-    Serial.println("");
-    
-    // BQ.setChargeVoltage(200);
+    Serial.println("Device : MAX17048");
+    Serial.print("VCELL ADC : ");
+    Serial.println(max17048.adc());
+    Serial.print("VCELL V   : ");
+    Serial.println(max17048.voltage());
+    Serial.print("VCELL SOC : ");
+    Serial.print(max17048.percent());
+    Serial.println(" \%");
+    Serial.print("VCELL SOC : ");
+    Serial.print(max17048.accuratePercent());
+    Serial.println(" \%");
+    Serial.println();
+    delay(1000);
     }
     
 }
@@ -171,21 +115,7 @@ void loop()
 
 
 
-    
 
-  // Serial.println("Device : MAX17048");
-  // Serial.print("VCELL ADC : ");
-  // Serial.println(pwr_mgmt.adc());
-  // Serial.print("VCELL V   : ");
-  // Serial.println(pwr_mgmt.voltage());
-  // Serial.print("VCELL SOC : ");
-  // Serial.print(pwr_mgmt.percent());
-  // Serial.println(" \%");
-  // Serial.print("VCELL SOC : ");
-  // Serial.print(pwr_mgmt.accuratePercent());
-  // Serial.println(" \%");
-  // Serial.println();
-  // delay(1000);
 
 
   // Serial.println("Device : VCNL4040");
