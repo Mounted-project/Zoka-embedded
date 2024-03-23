@@ -23,17 +23,17 @@
 
 static const char *TAG = "example";
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////// Please update the following configuration according to your LCD spec //////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// //////////////////// Please update the following configuration according to your LCD spec //////////////////////////////
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define EXAMPLE_LCD_PIXEL_CLOCK_HZ 54000000
 #define EXAMPLE_LCD_BK_LIGHT_ON_LEVEL 1
 #define EXAMPLE_LCD_BK_LIGHT_OFF_LEVEL !EXAMPLE_LCD_BK_LIGHT_ON_LEVEL
 #define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT SURE IF IT WORKS
-#define EXAMPLE_PIN_NUM_HSYNC 46
-#define EXAMPLE_PIN_NUM_VSYNC 3
+uint8_t EXAMPLE_PIN_NUM_HSYNC = 46;
+uint8_t EXAMPLE_PIN_NUM_VSYNC = 3;
 #define EXAMPLE_PIN_NUM_DE 1 // NOT SURE IF IT WORKS
-#define EXAMPLE_PIN_NUM_PCLK 9
+uint8_t EXAMPLE_PIN_NUM_PCLK = 9;
 #define EXAMPLE_PIN_NUM_DATA0 13  // B0
 #define EXAMPLE_PIN_NUM_DATA1 14  // B1
 #define EXAMPLE_PIN_NUM_DATA2 45  // B2
@@ -60,8 +60,8 @@ static const char *TAG = "example";
 #define LCD_XCLR 8
 
 // The pixel number in horizontal and vertical
-#define EXAMPLE_LCD_H_RES 800 // 1024
-#define EXAMPLE_LCD_V_RES 600 // 768
+#define EXAMPLE_LCD_H_RES 200 // 1024
+#define EXAMPLE_LCD_V_RES 200 // 768
 
 #if CONFIG_EXAMPLE_DOUBLE_FB
 #define EXAMPLE_LCD_NUM_FB 2
@@ -224,7 +224,8 @@ extern "C"
         panel_config.timings.vsync_back_porch = 32;
         panel_config.timings.vsync_front_porch = 19;
         panel_config.timings.vsync_pulse_width = 1;
-        panel_config.timings.flags.pclk_active_neg = 1;
+        panel_config.timings.flags.pclk_active_neg = 0;
+        panel_config.bounce_buffer_size_px = 1024; // WAS 10 * EXAMPLE_LCD_H_RES
 
         // panel_config.flags.xd = 1;
 
