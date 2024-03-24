@@ -161,13 +161,19 @@ void app_main(void)
             .h_res = EXAMPLE_LCD_H_RES,
             .v_res = EXAMPLE_LCD_V_RES,
             // The following parameters should refer to LCD spec
-            .hsync_back_porch = 40,
+            .hsync_back_porch = 32,
             .hsync_front_porch = 20,
             .hsync_pulse_width = 1,
-            .vsync_back_porch = 8,
-            .vsync_front_porch = 4,
+            .vsync_back_porch = 32,
+            .vsync_front_porch = 19,
             .vsync_pulse_width = 1,
-            .flags.pclk_active_neg = true,
+            // .hsync_back_porch = 40,
+            // .hsync_front_porch = 20,
+            // .hsync_pulse_width = 1,
+            // .vsync_back_porch = 8,
+            // .vsync_front_porch = 4,
+            // .vsync_pulse_width = 1,
+            .flags.pclk_active_neg = false,
         },
         .flags.fb_in_psram = true, // allocate frame buffer in PSRAM
     };
