@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: CC0-1.0
  */
 
-#include "Arduino.h"
 #include <stdio.h>
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
@@ -18,39 +17,43 @@
 #include "esp_log.h"
 #include "lvgl.h"
 
-#include "MCP23017.h"
-#include "pins.hpp"
+// #include "MCP23017.h"
+// #include "pins.hpp"
 
 static const char *TAG = "example";
+
+#define EXAMPLE_LCD_PIXEL_CLOCK_HZ 53903743 // is 54_000_000
+#define EXAMPLE_LCD_BK_LIGHT_ON_LEVEL 1
+#define EXAMPLE_LCD_BK_LIGHT_OFF_LEVEL !EXAMPLE_LCD_BK_LIGHT_ON_LEVEL
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // //////////////////// Please update the following configuration according to your LCD spec //////////////////////////////
 // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define EXAMPLE_LCD_PIXEL_CLOCK_HZ 54000000
+#define EXAMPLE_LCD_PIXEL_CLOCK_HZ 53903743
 #define EXAMPLE_LCD_BK_LIGHT_ON_LEVEL 1
 #define EXAMPLE_LCD_BK_LIGHT_OFF_LEVEL !EXAMPLE_LCD_BK_LIGHT_ON_LEVEL
 #define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT SURE IF IT WORKS
 uint8_t EXAMPLE_PIN_NUM_HSYNC = 46;
 uint8_t EXAMPLE_PIN_NUM_VSYNC = 3;
-#define EXAMPLE_PIN_NUM_DE 1 // NOT SURE IF IT WORKS
+uint8_t EXAMPLE_PIN_NUM_DE = 0; // NOT SURE IF IT WORKS
 uint8_t EXAMPLE_PIN_NUM_PCLK = 9;
-#define EXAMPLE_PIN_NUM_DATA0 13  // B0
-#define EXAMPLE_PIN_NUM_DATA1 14  // B1
-#define EXAMPLE_PIN_NUM_DATA2 45  // B2
-#define EXAMPLE_PIN_NUM_DATA3 47  // B3
-#define EXAMPLE_PIN_NUM_DATA4 48  // B4
-#define EXAMPLE_PIN_NUM_DATA5 39  // G0
-#define EXAMPLE_PIN_NUM_DATA6 38  // G1
-#define EXAMPLE_PIN_NUM_DATA7 12  // G2
-#define EXAMPLE_PIN_NUM_DATA8 10  // G3
-#define EXAMPLE_PIN_NUM_DATA9 11  // G4
-#define EXAMPLE_PIN_NUM_DATA10 11 // G5
-#define EXAMPLE_PIN_NUM_DATA11 1  // R0
-#define EXAMPLE_PIN_NUM_DATA12 43 // R1
-#define EXAMPLE_PIN_NUM_DATA13 42 // R2
-#define EXAMPLE_PIN_NUM_DATA14 41 // R3
-#define EXAMPLE_PIN_NUM_DATA15 40 // R4
-#define EXAMPLE_PIN_NUM_DISP_EN 1 // NOT SURE IF IT WORKS
+uint8_t EXAMPLE_PIN_NUM_DATA0 = 13;  // B0
+uint8_t EXAMPLE_PIN_NUM_DATA1 = 14;  // B1
+uint8_t EXAMPLE_PIN_NUM_DATA2 = 45;  // B2
+uint8_t EXAMPLE_PIN_NUM_DATA3 = 47;  // B3
+uint8_t EXAMPLE_PIN_NUM_DATA4 = 48;  // B4
+uint8_t EXAMPLE_PIN_NUM_DATA5 = 39;  // G0
+uint8_t EXAMPLE_PIN_NUM_DATA6 = 38;  // G1
+uint8_t EXAMPLE_PIN_NUM_DATA7 = 12;  // G2
+uint8_t EXAMPLE_PIN_NUM_DATA8 = 10;  // G3
+uint8_t EXAMPLE_PIN_NUM_DATA9 = 11;  // G4
+uint8_t EXAMPLE_PIN_NUM_DATA10 = 11; // G5
+uint8_t EXAMPLE_PIN_NUM_DATA11 = 1;  // R0
+uint8_t EXAMPLE_PIN_NUM_DATA12 = 43; // R1
+uint8_t EXAMPLE_PIN_NUM_DATA13 = 42; // R2
+uint8_t EXAMPLE_PIN_NUM_DATA14 = 41; // R3
+uint8_t EXAMPLE_PIN_NUM_DATA15 = 40; // R4
+uint8_t EXAMPLE_PIN_NUM_DISP_EN = 0; // NOT SURE IF IT WORKS
 
 #define LCD_SPI_MISO 4
 #define LCD_SPI_MOSI 5
@@ -58,10 +61,9 @@ uint8_t EXAMPLE_PIN_NUM_PCLK = 9;
 #define LCD_SPI_CS 7
 
 #define LCD_XCLR 8
-
 // The pixel number in horizontal and vertical
-#define EXAMPLE_LCD_H_RES 200 // 1024
-#define EXAMPLE_LCD_V_RES 200 // 768
+#define EXAMPLE_LCD_H_RES 1024
+#define EXAMPLE_LCD_V_RES 768
 
 #if CONFIG_EXAMPLE_DOUBLE_FB
 #define EXAMPLE_LCD_NUM_FB 2
@@ -117,42 +119,12 @@ extern "C"
 {
     void app_main()
     {
-        initArduino();
+        // initArduino();
         ESP_LOGI(TAG, "Stared app_main");
-        pinMode(LCD_SPI_CS, OUTPUT);
-        pinMode(LCD_SPI_MOSI, OUTPUT);
-        pinMode(LCD_SPI_MISO, INPUT);
-        pinMode(LCD_SPI_SCLK, OUTPUT);
-        digitalWrite(LCD_SPI_CS, HIGH); // disable device
-        pinMode(LCD_XCLR, OUTPUT);
-
-        Wire.begin(I2C_SDA, I2C_SCL, 100000);
-        MCP23017 MCP = MCP23017(MCP23017_ADDR, Wire);
-        MCP.init();
-        MCP.pinMode(BQ_CHARGE_STATUS, 1);
-        MCP.pinMode(BQ_PGOOD, 1);
-
-        MCP.pinMode(RGB_LED_R, 0);
-        MCP.pinMode(RGB_LED_G, 0);
-        MCP.pinMode(RGB_LED_B, 0);
-        MCP.pinMode(LEDS_ENABLE, 0);
-
-        MCP.pinMode(ENABLE_1_8V, 0);
-        MCP.pinMode(ENABLE_10V, 0);
-        MCP.pinMode(RGB_LCD_LSB, 0);
-
-        MCP.pinMode(BUTTON_ENCODER, 1);
-        MCP.pinMode(BUTTON1, 1);
-        MCP.pinMode(BUTTON2, 1);
-
-        MCP.digitalWrite(ENABLE_1_8V, 0);
-        MCP.digitalWrite(ENABLE_10V, 0);
-        MCP.digitalWrite(RGB_LCD_LSB, 0);
-        MCP.digitalWrite(RGB_LED_R, 1);
-        MCP.digitalWrite(RGB_LED_G, 1);
-        MCP.digitalWrite(RGB_LED_B, 1);
-
-        MCP.digitalWrite(LEDS_ENABLE, 0);
+        size_t free_heap = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
+        ESP_LOGI(TAG, "FREE HEAP: %zu", free_heap);
+        size_t free_psram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
+        ESP_LOGI(TAG, "FREE PSRAM: %zu", free_psram);
 
         static lv_disp_draw_buf_t disp_buf; // contains internal graphic buffer(s) called draw buffer(s)
         static lv_disp_drv_t disp_drv;      // contains callback functions
@@ -174,29 +146,24 @@ extern "C"
 #endif
         ESP_LOGI(TAG, "Install RGB LCD panel driver");
         esp_lcd_panel_handle_t panel_handle = NULL;
-        //  // calculate buffer size
-        //     size_t fb_size = rgb_panel_config->timings.h_res * rgb_panel_config->timings.v_res * fb_bits_per_pixel / 8;
-        //     size_t bb_size = rgb_panel_config->bounce_buffer_size_px * fb_bits_per_pixel / 8;
-        //     if (bb_size) {
-        //         // we want the bounce can always end in the second buffer
-        //         ESP_GOTO_ON_FALSE(fb_size % (2 * bb_size) == 0, ESP_ERR_INVALID_ARG, err, TAG,
-        //                           "fb size must be even multiple of bounce buffer size");
-        //     }
         esp_lcd_rgb_panel_config_t panel_config;
         panel_config.data_width = 16;
         panel_config.psram_trans_align = 64;
+        panel_config.sram_trans_align = 64;
         panel_config.num_fbs = EXAMPLE_LCD_NUM_FB;
+        panel_config.flags.no_fb = 0;
 
 #if CONFIG_EXAMPLE_USE_BOUNCE_BUFFER
         panel_config.bounce_buffer_size_px = 10 * EXAMPLE_LCD_H_RES;
 #endif
-
+        panel_config.bounce_buffer_size_px = 0; // JULIEN
         panel_config.clk_src = LCD_CLK_SRC_DEFAULT;
         panel_config.disp_gpio_num = EXAMPLE_PIN_NUM_DISP_EN;
         panel_config.pclk_gpio_num = EXAMPLE_PIN_NUM_PCLK;
         panel_config.vsync_gpio_num = EXAMPLE_PIN_NUM_VSYNC;
         panel_config.hsync_gpio_num = EXAMPLE_PIN_NUM_HSYNC;
         panel_config.de_gpio_num = EXAMPLE_PIN_NUM_DE;
+        panel_config.bits_per_pixel = 0;
 
         panel_config.data_gpio_nums[0] = EXAMPLE_PIN_NUM_DATA0;
         panel_config.data_gpio_nums[1] = EXAMPLE_PIN_NUM_DATA1;
@@ -225,61 +192,18 @@ extern "C"
         panel_config.timings.vsync_front_porch = 19;
         panel_config.timings.vsync_pulse_width = 1;
         panel_config.timings.flags.pclk_active_neg = 0;
-        panel_config.bounce_buffer_size_px = 1024; // WAS 10 * EXAMPLE_LCD_H_RES
+        panel_config.flags.fb_in_psram = 1;
+        panel_config.flags.double_fb = 0;
 
-        // panel_config.flags.xd = 1;
-
-        //     esp_lcd_rgb_panel_config_t panel_config = {
-        //         .data_width = 16, // RGB565 in parallel mode, thus 16bit in width
-        //         .psram_trans_align = 64,
-        //         .num_fbs = EXAMPLE_LCD_NUM_FB,
-        // #if CONFIG_EXAMPLE_USE_BOUNCE_BUFFER
-        //         .bounce_buffer_size_px = 10 * EXAMPLE_LCD_H_RES,
-        // #endif
-        //         .clk_src = LCD_CLK_SRC_DEFAULT,
-        //         .disp_gpio_num = EXAMPLE_PIN_NUM_DISP_EN,
-        //         .pclk_gpio_num = EXAMPLE_PIN_NUM_PCLK,
-        //         .vsync_gpio_num = EXAMPLE_PIN_NUM_VSYNC,
-        //         .hsync_gpio_num = EXAMPLE_PIN_NUM_HSYNC,
-        //         .de_gpio_num = EXAMPLE_PIN_NUM_DE,
-        //         .data_gpio_nums = {
-        //             EXAMPLE_PIN_NUM_DATA0,
-        //             EXAMPLE_PIN_NUM_DATA1,
-        //             EXAMPLE_PIN_NUM_DATA2,
-        //             EXAMPLE_PIN_NUM_DATA3,
-        //             EXAMPLE_PIN_NUM_DATA4,
-        //             EXAMPLE_PIN_NUM_DATA5,
-        //             EXAMPLE_PIN_NUM_DATA6,
-        //             EXAMPLE_PIN_NUM_DATA7,
-        //             EXAMPLE_PIN_NUM_DATA8,
-        //             EXAMPLE_PIN_NUM_DATA9,
-        //             EXAMPLE_PIN_NUM_DATA10,
-        //             EXAMPLE_PIN_NUM_DATA11,
-        //             EXAMPLE_PIN_NUM_DATA12,
-        //             EXAMPLE_PIN_NUM_DATA13,
-        //             EXAMPLE_PIN_NUM_DATA14,
-        //             EXAMPLE_PIN_NUM_DATA15,
-        //         },
-        //         .timings = {
-        //             .pclk_hz = EXAMPLE_LCD_PIXEL_CLOCK_HZ,
-        //             .h_res = EXAMPLE_LCD_H_RES,
-        //             .v_res = EXAMPLE_LCD_V_RES,
-        //             // The following parameters should refer to LCD spec
-        //             .hsync_back_porch = 32,
-        //             .hsync_front_porch = 20,
-        //             .hsync_pulse_width = 1,
-        //             .vsync_back_porch = 32,
-        //             .vsync_front_porch = 19,
-        //             .vsync_pulse_width = 1,
-        //             .flags.pclk_active_neg = 1,
-        //         },
-        //         .flags.xd = 1, // allocate frame buffer in PSRAM
-        //     };
         size_t fb_size = panel_config.timings.h_res * panel_config.timings.v_res * panel_config.data_width / 8;
 
         size_t bb_size = panel_config.bounce_buffer_size_px * panel_config.data_width / 8;
-        ESP_LOGI(TAG, "fb_size: %zu", fb_size); // Use %zu for size_t
-        ESP_LOGI(TAG, "bb_size: %zu", bb_size); // Use %zu for
+        ESP_LOGI(TAG, "fb_size: %zu", fb_size);
+        ESP_LOGI(TAG, "bb_size: %zu", bb_size);
+        free_heap = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
+        ESP_LOGI(TAG, "FREE HEAP: %zu", free_heap);
+        free_psram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
+        ESP_LOGI(TAG, "FREE PSRAM: %zu", free_psram);
 
         ESP_ERROR_CHECK(esp_lcd_new_rgb_panel(&panel_config, &panel_handle));
 
