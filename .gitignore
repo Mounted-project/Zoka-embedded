@@ -31,9 +31,12 @@
 *.out
 *.app
 
-# Unwanted folders
+# Unwanted files and folders
 .pio
 .vscode
 .DS_Store
 managed_components
 build
+.doit.db.db
+__pycache__
+crashlogs.shl
