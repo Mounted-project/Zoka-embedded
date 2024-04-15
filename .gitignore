@@ -40,3 +40,4 @@ build
 .doit.db.db
 __pycache__
 crashlogs.shl
+venv

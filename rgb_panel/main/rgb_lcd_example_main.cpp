@@ -3,7 +3,7 @@
  *
  * SPDX-License-Identifier: CC0-1.0
  */
-
+#include "Arduino.h"
 #include <stdio.h>
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
@@ -17,67 +17,21 @@
 #include "esp_log.h"
 #include "lvgl.h"
 
-// #include "MCP23017.h"
-// #include "pins.hpp"
-
+#include "MCP23017.h"
+#include "ECX334.hpp"
+#include "pins.hpp"
+#include "lcd_parameters.h"
+#include "lcd_config.h"
 static const char *TAG = "example";
 
-#define EXAMPLE_LCD_PIXEL_CLOCK_HZ 53903743 // is 54_000_000
-#define EXAMPLE_LCD_BK_LIGHT_ON_LEVEL 1
-#define EXAMPLE_LCD_BK_LIGHT_OFF_LEVEL !EXAMPLE_LCD_BK_LIGHT_ON_LEVEL
-
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// //////////////////// Please update the following configuration according to your LCD spec //////////////////////////////
-// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#define EXAMPLE_LCD_PIXEL_CLOCK_HZ 53903743
-#define EXAMPLE_LCD_BK_LIGHT_ON_LEVEL 1
-#define EXAMPLE_LCD_BK_LIGHT_OFF_LEVEL !EXAMPLE_LCD_BK_LIGHT_ON_LEVEL
-#define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT SURE IF IT WORKS
-uint8_t EXAMPLE_PIN_NUM_HSYNC = 46;
-uint8_t EXAMPLE_PIN_NUM_VSYNC = 3;
-uint8_t EXAMPLE_PIN_NUM_DE = 0; // NOT SURE IF IT WORKS
-uint8_t EXAMPLE_PIN_NUM_PCLK = 9;
-uint8_t EXAMPLE_PIN_NUM_DATA0 = 13;  // B0
-uint8_t EXAMPLE_PIN_NUM_DATA1 = 14;  // B1
-uint8_t EXAMPLE_PIN_NUM_DATA2 = 45;  // B2
-uint8_t EXAMPLE_PIN_NUM_DATA3 = 47;  // B3
-uint8_t EXAMPLE_PIN_NUM_DATA4 = 48;  // B4
-uint8_t EXAMPLE_PIN_NUM_DATA5 = 39;  // G0
-uint8_t EXAMPLE_PIN_NUM_DATA6 = 38;  // G1
-uint8_t EXAMPLE_PIN_NUM_DATA7 = 12;  // G2
-uint8_t EXAMPLE_PIN_NUM_DATA8 = 10;  // G3
-uint8_t EXAMPLE_PIN_NUM_DATA9 = 11;  // G4
-uint8_t EXAMPLE_PIN_NUM_DATA10 = 11; // G5
-uint8_t EXAMPLE_PIN_NUM_DATA11 = 1;  // R0
-uint8_t EXAMPLE_PIN_NUM_DATA12 = 43; // R1
-uint8_t EXAMPLE_PIN_NUM_DATA13 = 42; // R2
-uint8_t EXAMPLE_PIN_NUM_DATA14 = 41; // R3
-uint8_t EXAMPLE_PIN_NUM_DATA15 = 40; // R4
-uint8_t EXAMPLE_PIN_NUM_DISP_EN = 0; // NOT SURE IF IT WORKS
-
-#define LCD_SPI_MISO 4
-#define LCD_SPI_MOSI 5
-#define LCD_SPI_SCLK 6
-#define LCD_SPI_CS 7
-
-#define LCD_XCLR 8
 // The pixel number in horizontal and vertical
-#define EXAMPLE_LCD_H_RES 1024
-#define EXAMPLE_LCD_V_RES 768
-
-#if CONFIG_EXAMPLE_DOUBLE_FB
-#define EXAMPLE_LCD_NUM_FB 2
-#else
-#define EXAMPLE_LCD_NUM_FB 1
-#endif // CONFIG_EXAMPLE_DOUBLE_FB
-
-#define EXAMPLE_LVGL_TICK_PERIOD_MS 2
 
 // we use two semaphores to sync the VSYNC event and the LVGL task, to avoid potential tearing effect
 #if CONFIG_EXAMPLE_AVOID_TEAR_EFFECT_WITH_SEM
 SemaphoreHandle_t sem_vsync_end;
 SemaphoreHandle_t sem_gui_ready;
 #endif
+
 extern "C"
 {
     extern void example_lvgl_demo_ui(lv_disp_t *disp);
@@ -119,7 +73,37 @@ extern "C"
 {
     void app_main()
     {
-        // initArduino();
+        initArduino();
+        ESP_LOGI(TAG, "Stared app_main");
+        initLcdSpi();
+
+        Wire.begin(I2C_SDA, I2C_SCL, 100000);
+        MCP23017 MCP = MCP23017(MCP23017_ADDR, Wire);
+        MCP.init();
+        MCP.pinMode(BQ_CHARGE_STATUS, 1);
+        MCP.pinMode(BQ_PGOOD, 1);
+
+        MCP.pinMode(RGB_LED_R, 0);
+        MCP.pinMode(RGB_LED_G, 0);
+        MCP.pinMode(RGB_LED_B, 0);
+        MCP.pinMode(LEDS_ENABLE, 0);
+
+        MCP.pinMode(ENABLE_1_8V, 0);
+        MCP.pinMode(ENABLE_10V, 0);
+        MCP.pinMode(RGB_LCD_LSB, 0);
+
+        MCP.pinMode(BUTTON_ENCODER, 1);
+        MCP.pinMode(BUTTON1, 1);
+        MCP.pinMode(BUTTON2, 1);
+
+        MCP.digitalWrite(ENABLE_1_8V, 0);
+        MCP.digitalWrite(ENABLE_10V, 0);
+        MCP.digitalWrite(RGB_LCD_LSB, 0);
+        MCP.digitalWrite(RGB_LED_R, 1);
+        MCP.digitalWrite(RGB_LED_G, 1);
+        MCP.digitalWrite(RGB_LED_B, 1);
+
+        MCP.digitalWrite(LEDS_ENABLE, 0);
         ESP_LOGI(TAG, "Stared app_main");
         size_t free_heap = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
         ESP_LOGI(TAG, "FREE HEAP: %zu", free_heap);
@@ -128,7 +112,6 @@ extern "C"
 
         static lv_disp_draw_buf_t disp_buf; // contains internal graphic buffer(s) called draw buffer(s)
         static lv_disp_drv_t disp_drv;      // contains callback functions
-
 #if CONFIG_EXAMPLE_AVOID_TEAR_EFFECT_WITH_SEM
         ESP_LOGI(TAG, "Create semaphores");
         sem_vsync_end = xSemaphoreCreateBinary();
@@ -264,13 +247,61 @@ extern "C"
 
         ESP_LOGI(TAG, "Display LVGL Scatter Chart");
         example_lvgl_demo_ui(disp);
-
+        pinMode(LCD_XCLR, OUTPUT);
+        ESP_LOGI("LCD : ", "STARTING POWER ON SEQUENCE\n");
+        ESP_LOGI("LCD : ", "Init step 1\n");
+        digitalWrite(LCD_XCLR, LOW);
+        MCP.digitalWrite(ENABLE_1_8V, 1);
+        ESP_LOGI("LCD : ", "Init step 2\n");
+        delay(2);
+        digitalWrite(LCD_XCLR, HIGH);
+        ESP_LOGI("LCD : ", "Init step 3\n");
+        MCP.digitalWrite(ENABLE_10V, 1);
+        delay(11);
+        writeSPIRegister(0X03, 0xA0);
+        delay(1);
+        writeSPIRegister(0X04, 0x5F);
+        delay(1);
+        writeSPIRegister(0X53, 0x02);
+        delay(1);
+        writeSPIRegister(0X5B, 0x4F);
+        delay(1);
+        writeSPIRegister(0X5C, 0x4D);
+        ESP_LOGI("LCD : ", "Init step 4\n");
+        delay(1);
+        writeSPIRegister(0X00, 0x0F);
+        ESP_LOGI("LCD : ", "Init step 5\n");
+        delay(4);
+        writeSPIRegister(0X04, 0x1F);
+        ESP_LOGI("LCD : ", "Init step 6\n");
+        delay(4);
+        writeSPIRegister(0X5B, 0x04);
+        delay(1);
+        writeSPIRegister(0X5C, 0x04);
+        ESP_LOGI("LCD : ", "Init step 7\n");
+        delay(2);
+        writeSPIRegister(0X5B, 0x00);
+        delay(1);
+        writeSPIRegister(0X5C, 0x00);
+        ESP_LOGI("LCD : ", "Init step 8\n");
+        delay(1);
+        writeSPIRegister(0X53, 0x00);
+        ESP_LOGI("LCD : ", "Init step 9\n");
+        delay(1);
+        writeSPIRegister(0X03, 0x20);
+        ESP_LOGI("LCD : ", "POWER ON SEQUENCE DONE\n");
+        byte data0X09 = readSPIRegister(0x09);
+        ESP_LOGI(TAG, "Read data: 0x%02X", data0X09);
         while (1)
         {
             // raise the task priority of LVGL and/or reduce the handler period can improve the performance
             vTaskDelay(pdMS_TO_TICKS(10));
             // The task running lv_timer_handler should have lower priority than that running `lv_tick_inc`
             lv_timer_handler();
+            // previous_state = !previous_state;
+            // MCP.digitalWrite(RGB_LED_R, previous_state);
+            // MCP.digitalWrite(RGB_LED_G, previous_state);
+            // MCP.digitalWrite(RGB_LED_B, previous_state);
         }
     }
 }

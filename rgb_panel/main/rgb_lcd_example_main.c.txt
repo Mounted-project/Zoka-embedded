@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: CC0-1.0
  */
 
-#include "Arduino.h"
 #include <stdio.h>
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
@@ -18,46 +17,37 @@
 #include "esp_log.h"
 #include "lvgl.h"
 
-// #include "MCP23017.h"
-// #include "pins.hpp"
-
 static const char *TAG = "example";
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////// Please update the following configuration according to your LCD spec //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-#define EXAMPLE_LCD_PIXEL_CLOCK_HZ 54000000
+#define EXAMPLE_LCD_PIXEL_CLOCK_HZ 53903743 // 54000000
 #define EXAMPLE_LCD_BK_LIGHT_ON_LEVEL 1
 #define EXAMPLE_LCD_BK_LIGHT_OFF_LEVEL !EXAMPLE_LCD_BK_LIGHT_ON_LEVEL
-#define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT SURE IF IT WORKS
-#define EXAMPLE_PIN_NUM_HSYNC 46
-#define EXAMPLE_PIN_NUM_VSYNC 3
-#define EXAMPLE_PIN_NUM_DE -1 // NOT SURE IF IT WORKS
-#define EXAMPLE_PIN_NUM_PCLK 9
-#define EXAMPLE_PIN_NUM_DATA0 13  // B0
-#define EXAMPLE_PIN_NUM_DATA1 14  // B1
-#define EXAMPLE_PIN_NUM_DATA2 45  // B2
-#define EXAMPLE_PIN_NUM_DATA3 47  // B3
-#define EXAMPLE_PIN_NUM_DATA4 48  // B4
-#define EXAMPLE_PIN_NUM_DATA5 39  // G0
-#define EXAMPLE_PIN_NUM_DATA6 38  // G1
-#define EXAMPLE_PIN_NUM_DATA7 12  // G2
-#define EXAMPLE_PIN_NUM_DATA8 10  // G3
-#define EXAMPLE_PIN_NUM_DATA9 11  // G4
-#define EXAMPLE_PIN_NUM_DATA10 11 // G5
-#define EXAMPLE_PIN_NUM_DATA11 1  // R0
-#define EXAMPLE_PIN_NUM_DATA12 43 // R1
-#define EXAMPLE_PIN_NUM_DATA13 42 // R2
-#define EXAMPLE_PIN_NUM_DATA14 41 // R3
-#define EXAMPLE_PIN_NUM_DATA15 40 // R4
-#define EXAMPLE_PIN_NUM_DISP_EN -1
+gpio_num_t EXAMPLE_PIN_NUM_BK_LIGHT = 4;
+gpio_num_t EXAMPLE_PIN_NUM_HSYNC = 46;
+gpio_num_t EXAMPLE_PIN_NUM_VSYNC = 3;
+gpio_num_t EXAMPLE_PIN_NUM_DE = 0;
+gpio_num_t EXAMPLE_PIN_NUM_PCLK = 9;
+gpio_num_t EXAMPLE_PIN_NUM_DATA0 = 13;  // B0
+gpio_num_t EXAMPLE_PIN_NUM_DATA1 = 14;  // B1
+gpio_num_t EXAMPLE_PIN_NUM_DATA2 = 45;  // B2
+gpio_num_t EXAMPLE_PIN_NUM_DATA3 = 47;  // B3
+gpio_num_t EXAMPLE_PIN_NUM_DATA4 = 48;  // B4
+gpio_num_t EXAMPLE_PIN_NUM_DATA5 = 39;  // G0
+gpio_num_t EXAMPLE_PIN_NUM_DATA6 = 38;  // G1
+gpio_num_t EXAMPLE_PIN_NUM_DATA7 = 12;  // G2
+gpio_num_t EXAMPLE_PIN_NUM_DATA8 = 10;  // G3
+gpio_num_t EXAMPLE_PIN_NUM_DATA9 = 11;  // G4
+gpio_num_t EXAMPLE_PIN_NUM_DATA10 = 0;  // G5
+gpio_num_t EXAMPLE_PIN_NUM_DATA11 = 1;  // R0
+gpio_num_t EXAMPLE_PIN_NUM_DATA12 = 43; // R1
+gpio_num_t EXAMPLE_PIN_NUM_DATA13 = 42; // R2
+gpio_num_t EXAMPLE_PIN_NUM_DATA14 = 41; // R3
+gpio_num_t EXAMPLE_PIN_NUM_DATA15 = 40; // R4
+gpio_num_t EXAMPLE_PIN_NUM_DISP_EN = 0;
 
-#define LCD_SPI_MISO 4
-#define LCD_SPI_MOSI 5
-#define LCD_SPI_SCLK 6
-#define LCD_SPI_CS 7
-
-#define LCD_XCLR 8
 // The pixel number in horizontal and vertical
 #define EXAMPLE_LCD_H_RES 1024
 #define EXAMPLE_LCD_V_RES 768
@@ -114,41 +104,6 @@ static void example_increase_lvgl_tick(void *arg)
 
 void app_main(void)
 {
-    ESP_LOGI(TAG, "Stared app_main");
-    pinMode(LCD_SPI_CS, OUTPUT);
-    pinMode(LCD_SPI_MOSI, OUTPUT);
-    pinMode(LCD_SPI_MISO, INPUT);
-    pinMode(LCD_SPI_SCLK, OUTPUT);
-    digitalWrite(LCD_SPI_CS, HIGH); // disable device
-    pinMode(LCD_XCLR, OUTPUT);
-    // Wire.begin(I2C_SDA, I2C_SCL, 100000);
-    // MCP23017 MCP = MCP23017(MCP23017_ADDR, Wire);
-    // MCP.init();
-    // MCP.pinMode(BQ_CHARGE_STATUS, 1);
-    // MCP.pinMode(BQ_PGOOD, 1);
-
-    // MCP.pinMode(RGB_LED_R, 0);
-    // MCP.pinMode(RGB_LED_G, 0);
-    // MCP.pinMode(RGB_LED_B, 0);
-    // MCP.pinMode(LEDS_ENABLE, 0);
-
-    // MCP.pinMode(ENABLE_1_8V, 0);
-    // MCP.pinMode(ENABLE_10V, 0);
-    // MCP.pinMode(RGB_LCD_LSB, 0);
-
-    // MCP.pinMode(BUTTON_ENCODER, 1);
-    // MCP.pinMode(BUTTON1, 1);
-    // MCP.pinMode(BUTTON2, 1);
-
-    // MCP.digitalWrite(ENABLE_1_8V, 0);
-    // MCP.digitalWrite(ENABLE_10V, 0);
-    // MCP.digitalWrite(RGB_LCD_LSB, 0);
-    // MCP.digitalWrite(RGB_LED_R, 1);
-    // MCP.digitalWrite(RGB_LED_G, 1);
-    // MCP.digitalWrite(RGB_LED_B, 1);
-
-    // MCP.digitalWrite(LEDS_ENABLE, 0);
-
     static lv_disp_draw_buf_t disp_buf; // contains internal graphic buffer(s) called draw buffer(s)
     static lv_disp_drv_t disp_drv;      // contains callback functions
 
@@ -212,7 +167,13 @@ void app_main(void)
             .vsync_back_porch = 32,
             .vsync_front_porch = 19,
             .vsync_pulse_width = 1,
-            .flags.pclk_active_neg = true,
+            // .hsync_back_porch = 40,
+            // .hsync_front_porch = 20,
+            // .hsync_pulse_width = 1,
+            // .vsync_back_porch = 8,
+            // .vsync_front_porch = 4,
+            // .vsync_pulse_width = 1,
+            .flags.pclk_active_neg = false,
         },
         .flags.fb_in_psram = true, // allocate frame buffer in PSRAM
     };
@@ -282,5 +243,14 @@ void app_main(void)
         vTaskDelay(pdMS_TO_TICKS(10));
         // The task running lv_timer_handler should have lower priority than that running `lv_tick_inc`
         lv_timer_handler();
+        size_t fb_size = panel_config.timings.h_res * panel_config.timings.v_res * panel_config.data_width / 8;
+
+        size_t bb_size = panel_config.bounce_buffer_size_px * panel_config.data_width / 8;
+        ESP_LOGI(TAG, "fb_size: %zu", fb_size);
+        ESP_LOGI(TAG, "bb_size: %zu", bb_size);
+        size_t free_heap = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
+        ESP_LOGI(TAG, "FREE HEAP: %zu", free_heap);
+        size_t free_psram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
+        ESP_LOGI(TAG, "FREE PSRAM: %zu", free_psram);
     }
 }

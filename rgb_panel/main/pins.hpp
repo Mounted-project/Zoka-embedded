@@ -23,39 +23,31 @@ constexpr uint8_t ESP_POWER_EN = 44;
 constexpr uint8_t I2C_SDA = 15;
 constexpr uint8_t I2C_SCL = 2;
 
+uint8_t LCD_XCLR = 8;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////// Please update the following configuration according to your LCD spec //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// #define EXAMPLE_LCD_PIXEL_CLOCK_HZ 54000000
-// #define EXAMPLE_LCD_BK_LIGHT_ON_LEVEL 1
-// #define EXAMPLE_LCD_BK_LIGHT_OFF_LEVEL !EXAMPLE_LCD_BK_LIGHT_ON_LEVEL
-// #define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT SURE IF IT WORKS
-// #define EXAMPLE_PIN_NUM_HSYNC 46
-// #define EXAMPLE_PIN_NUM_VSYNC 3
-// #define EXAMPLE_PIN_NUM_DE -1 // NOT SURE IF IT WORKS
-// #define EXAMPLE_PIN_NUM_PCLK 9
-// #define EXAMPLE_PIN_NUM_DATA0 13  // B0
-// #define EXAMPLE_PIN_NUM_DATA1 14  // B1
-// #define EXAMPLE_PIN_NUM_DATA2 45  // B2
-// #define EXAMPLE_PIN_NUM_DATA3 47  // B3
-// #define EXAMPLE_PIN_NUM_DATA4 48  // B4
-// #define EXAMPLE_PIN_NUM_DATA5 39  // G0
-// #define EXAMPLE_PIN_NUM_DATA6 38  // G1
-// #define EXAMPLE_PIN_NUM_DATA7 12  // G2
-// #define EXAMPLE_PIN_NUM_DATA8 10  // G3
-// #define EXAMPLE_PIN_NUM_DATA9 11  // G4
-// #define EXAMPLE_PIN_NUM_DATA10 11 // G5
-// #define EXAMPLE_PIN_NUM_DATA11 1  // R0
-// #define EXAMPLE_PIN_NUM_DATA12 43 // R1
-// #define EXAMPLE_PIN_NUM_DATA13 42 // R2
-// #define EXAMPLE_PIN_NUM_DATA14 41 // R3
-// #define EXAMPLE_PIN_NUM_DATA15 40 // R4
-// #define EXAMPLE_PIN_NUM_DISP_EN -1
-
-// #define LCD_SPI_MISO 4
-// #define LCD_SPI_MOSI 5
-// #define LCD_SPI_SCLK 6
-// #define LCD_SPI_CS 7
-
-// #define LCD_XCLR 8
+#define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT SURE IF IT WORKS
+uint8_t EXAMPLE_PIN_NUM_HSYNC = 46;
+uint8_t EXAMPLE_PIN_NUM_VSYNC = 3;
+uint8_t EXAMPLE_PIN_NUM_DE = 0; // NOT SURE IF IT WORKS
+uint8_t EXAMPLE_PIN_NUM_PCLK = 9;
+uint8_t EXAMPLE_PIN_NUM_DATA0 = 13;  // B0
+uint8_t EXAMPLE_PIN_NUM_DATA1 = 14;  // B1
+uint8_t EXAMPLE_PIN_NUM_DATA2 = 45;  // B2
+uint8_t EXAMPLE_PIN_NUM_DATA3 = 47;  // B3
+uint8_t EXAMPLE_PIN_NUM_DATA4 = 48;  // B4
+uint8_t EXAMPLE_PIN_NUM_DATA5 = 39;  // G0
+uint8_t EXAMPLE_PIN_NUM_DATA6 = 38;  // G1
+uint8_t EXAMPLE_PIN_NUM_DATA7 = 12;  // G2
+uint8_t EXAMPLE_PIN_NUM_DATA8 = 10;  // G3
+uint8_t EXAMPLE_PIN_NUM_DATA9 = 11;  // G4
+uint8_t EXAMPLE_PIN_NUM_DATA10 = 11; // G5
+uint8_t EXAMPLE_PIN_NUM_DATA11 = 1;  // R0
+uint8_t EXAMPLE_PIN_NUM_DATA12 = 43; // R1
+uint8_t EXAMPLE_PIN_NUM_DATA13 = 42; // R2
+uint8_t EXAMPLE_PIN_NUM_DATA14 = 41; // R3
+uint8_t EXAMPLE_PIN_NUM_DATA15 = 40; // R4
+uint8_t EXAMPLE_PIN_NUM_DISP_EN = 0; // NOT SURE IF IT WORKS
