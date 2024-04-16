@@ -1,3 +1,6 @@
 [submodule "rgb_panel/components/arduino-esp32"]
 	path = rgb_panel/components/arduino-esp32
 	url = git@github.com:espressif/arduino-esp32.git
+[submodule "rgb_panel/tools/esp-idf"]
+	path = rgb_panel/tools/esp-idf
+	url = git@github.com:espressif/esp-idf.git
