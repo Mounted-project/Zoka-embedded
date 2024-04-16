@@ -4,7 +4,7 @@ from doit.tools import Interactive
 from glob import glob
 from sys import platform
 
-IDF_PATH = './tools/esp-idf/'
+IDF_PATH = 'tools/esp-idf/'
 ZOKA_VIRTUAL_ENV         = './zoka-venv'
 
 env_port = getenv('ZOKA_SERIAL_PORT')
@@ -41,24 +41,23 @@ def task_install():
       f'. {ZOKA_VIRTUAL_ENV}/bin/activate',
       'git submodule update --init --recursive',
       'pip install -r requirements.txt',
-      './tools/esp-idf/install.sh',
+      'tools/esp-idf/install.sh',
     ],
     'uptodate': [
-      './tools/esp-idf/export.sh && idf.py'
+      'source tools/esp-idf/export.sh && idf.py'
     ],
     # 'task_dep': [''],
     'verbosity': 2,
   }
 
 def task_build():
-    """Compile the project"""
-    return {
-        
-        'actions': [Interactive(WITH_IDF(WITH_PACKAGES(CLI_PRINT('idf.py build'))))],
-        'file_dep': ['.config'],  # depends on the configuration
-        'targets': ['build/app.elf'],  # assuming this is the generated binary
-        # 'task_dep': ['set_env'],  # Depends on setting the ESP-IDF environment
-    }
+  """Builds the firmware."""
+  return {
+    'actions': [
+      Interactive(WITH_IDF(WITH_PACKAGES(CLI_PRINT('idf.py build'))))
+    ],
+  }
+
 
 def task_flash():
   """Flashes the firmware."""
