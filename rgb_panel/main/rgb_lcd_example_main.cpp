@@ -163,7 +163,7 @@ extern "C"
         panel_config.data_gpio_nums[12] = EXAMPLE_PIN_NUM_DATA12;
         panel_config.data_gpio_nums[13] = EXAMPLE_PIN_NUM_DATA13;
         panel_config.data_gpio_nums[14] = EXAMPLE_PIN_NUM_DATA14;
-        panel_config.data_gpio_nums[15] = EXAMPLE_PIN_NUM_DATA15;
+        panel_config.data_gpio_nums[15] = R4;
 
         panel_config.timings.pclk_hz = EXAMPLE_LCD_PIXEL_CLOCK_HZ;
         panel_config.timings.h_res = EXAMPLE_LCD_H_RES;
@@ -244,7 +244,6 @@ extern "C"
         esp_timer_handle_t lvgl_tick_timer = NULL;
         ESP_ERROR_CHECK(esp_timer_create(&lvgl_tick_timer_args, &lvgl_tick_timer));
         ESP_ERROR_CHECK(esp_timer_start_periodic(lvgl_tick_timer, EXAMPLE_LVGL_TICK_PERIOD_MS * 1000));
-
         ESP_LOGI(TAG, "Display LVGL Scatter Chart");
         example_lvgl_demo_ui(disp);
         pinMode(LCD_XCLR, OUTPUT);
@@ -257,10 +256,15 @@ extern "C"
         digitalWrite(LCD_XCLR, HIGH);
         ESP_LOGI("LCD : ", "Init step 3\n");
         MCP.digitalWrite(ENABLE_10V, 1);
+        byte read_data;
         delay(11);
         writeSPIRegister(0X03, 0xA0);
+        read_data = readSPIRegister(0X03);
+        ESP_LOGI(TAG, "Read data: 0x%02X", read_data);
         delay(1);
         writeSPIRegister(0X04, 0x5F);
+        read_data = readSPIRegister(0X04);
+        ESP_LOGI(TAG, "Read data: 0x%02X", read_data);
         delay(1);
         writeSPIRegister(0X53, 0x02);
         delay(1);
@@ -292,16 +296,17 @@ extern "C"
         ESP_LOGI("LCD : ", "POWER ON SEQUENCE DONE\n");
         byte data0X09 = readSPIRegister(0x09);
         ESP_LOGI(TAG, "Read data: 0x%02X", data0X09);
+
+        // writeSPIRegister(0X18, 0xA0);
+        read_data = readSPIRegister(0X18);
+        ESP_LOGI(TAG, "Brighness: 0x%02X", read_data);
         while (1)
         {
             // raise the task priority of LVGL and/or reduce the handler period can improve the performance
             vTaskDelay(pdMS_TO_TICKS(10));
+            digitalWrite()
             // The task running lv_timer_handler should have lower priority than that running `lv_tick_inc`
             lv_timer_handler();
-            // previous_state = !previous_state;
-            // MCP.digitalWrite(RGB_LED_R, previous_state);
-            // MCP.digitalWrite(RGB_LED_G, previous_state);
-            // MCP.digitalWrite(RGB_LED_B, previous_state);
         }
     }
 }
