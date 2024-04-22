@@ -98,7 +98,7 @@ extern "C"
 
         MCP.digitalWrite(ENABLE_1_8V, 0);
         MCP.digitalWrite(ENABLE_10V, 0);
-        MCP.digitalWrite(RGB_LCD_LSB, 0);
+        MCP.digitalWrite(RGB_LCD_LSB, 1);
         MCP.digitalWrite(RGB_LED_R, 1);
         MCP.digitalWrite(RGB_LED_G, 1);
         MCP.digitalWrite(RGB_LED_B, 1);
@@ -148,22 +148,22 @@ extern "C"
         panel_config.de_gpio_num = EXAMPLE_PIN_NUM_DE;
         panel_config.bits_per_pixel = 0;
 
-        panel_config.data_gpio_nums[0] = EXAMPLE_PIN_NUM_DATA0;
-        panel_config.data_gpio_nums[1] = EXAMPLE_PIN_NUM_DATA1;
-        panel_config.data_gpio_nums[2] = EXAMPLE_PIN_NUM_DATA2;
-        panel_config.data_gpio_nums[3] = EXAMPLE_PIN_NUM_DATA3;
-        panel_config.data_gpio_nums[4] = EXAMPLE_PIN_NUM_DATA4;
-        panel_config.data_gpio_nums[5] = EXAMPLE_PIN_NUM_DATA5;
-        panel_config.data_gpio_nums[6] = EXAMPLE_PIN_NUM_DATA6;
-        panel_config.data_gpio_nums[7] = EXAMPLE_PIN_NUM_DATA7;
-        panel_config.data_gpio_nums[8] = EXAMPLE_PIN_NUM_DATA8;
-        panel_config.data_gpio_nums[9] = EXAMPLE_PIN_NUM_DATA9;
-        panel_config.data_gpio_nums[10] = EXAMPLE_PIN_NUM_DATA10;
-        panel_config.data_gpio_nums[11] = EXAMPLE_PIN_NUM_DATA11;
-        panel_config.data_gpio_nums[12] = EXAMPLE_PIN_NUM_DATA12;
-        panel_config.data_gpio_nums[13] = EXAMPLE_PIN_NUM_DATA13;
-        panel_config.data_gpio_nums[14] = EXAMPLE_PIN_NUM_DATA14;
-        panel_config.data_gpio_nums[15] = R4;
+        panel_config.data_gpio_nums[0] = LCD_B0;
+        panel_config.data_gpio_nums[1] = LCD_B1;
+        panel_config.data_gpio_nums[2] = LCD_B2;
+        panel_config.data_gpio_nums[3] = LCD_B3;
+        panel_config.data_gpio_nums[4] = LCD_B4;
+        panel_config.data_gpio_nums[5] = LCD_G0;
+        panel_config.data_gpio_nums[6] = LCD_G1;
+        panel_config.data_gpio_nums[7] = LCD_G2;
+        panel_config.data_gpio_nums[8] = LCD_G3;
+        panel_config.data_gpio_nums[9] = LCD_G4;
+        panel_config.data_gpio_nums[10] =LCD_G5;
+        panel_config.data_gpio_nums[11] =LCD_R0;
+        panel_config.data_gpio_nums[12] =LCD_R1;
+        panel_config.data_gpio_nums[13] =LCD_R2;
+        panel_config.data_gpio_nums[14] =LCD_R3;
+        panel_config.data_gpio_nums[15] =LCD_R4;
 
         panel_config.timings.pclk_hz = EXAMPLE_LCD_PIXEL_CLOCK_HZ;
         panel_config.timings.h_res = EXAMPLE_LCD_H_RES;
@@ -248,49 +248,49 @@ extern "C"
         example_lvgl_demo_ui(disp);
         pinMode(LCD_XCLR, OUTPUT);
         ESP_LOGI("LCD : ", "STARTING POWER ON SEQUENCE\n");
-        ESP_LOGI("LCD : ", "Init step 1\n");
+        // ESP_LOGI("LCD : ", "Init step 1\n");
         digitalWrite(LCD_XCLR, LOW);
         MCP.digitalWrite(ENABLE_1_8V, 1);
-        ESP_LOGI("LCD : ", "Init step 2\n");
-        delay(2);
-        digitalWrite(LCD_XCLR, HIGH);
-        ESP_LOGI("LCD : ", "Init step 3\n");
+        delay(1);
         MCP.digitalWrite(ENABLE_10V, 1);
-        byte read_data;
+        delay(2);
+        // ESP_LOGI("LCD : ", "Init step 2\n");
+        digitalWrite(LCD_XCLR, HIGH);
+        // delay(2);
+        // ESP_LOGI("LCD : ", "Init step 3\n");
+        
+        // byte read_data;
         delay(11);
         writeSPIRegister(0X03, 0xA0);
-        read_data = readSPIRegister(0X03);
-        ESP_LOGI(TAG, "Read data: 0x%02X", read_data);
-        delay(1);
+        // read_data = readSPIRegister(0X03);
+        // ESP_LOGI(TAG, "Read data: 0x%02X", read_data);
+        // delay(1);
         writeSPIRegister(0X04, 0x5F);
-        read_data = readSPIRegister(0X04);
-        ESP_LOGI(TAG, "Read data: 0x%02X", read_data);
-        delay(1);
+        // read_data = readSPIRegister(0X04);
+        // ESP_LOGI(TAG, "Read data: 0x%02X", read_data);
+        // delay(1);
         writeSPIRegister(0X53, 0x02);
-        delay(1);
+        // delay(1);
         writeSPIRegister(0X5B, 0x4F);
-        delay(1);
+        // delay(1);
         writeSPIRegister(0X5C, 0x4D);
-        ESP_LOGI("LCD : ", "Init step 4\n");
-        delay(1);
+        // ESP_LOGI("LCD : ", "Init step 4\n");
+        // delay(1);
         writeSPIRegister(0X00, 0x0F);
-        ESP_LOGI("LCD : ", "Init step 5\n");
-        delay(4);
+        // ESP_LOGI("LCD : ", "Init step 5\n");
+        delay(1);
         writeSPIRegister(0X04, 0x1F);
-        ESP_LOGI("LCD : ", "Init step 6\n");
+        // ESP_LOGI("LCD : ", "Init step 6\n");
         delay(4);
         writeSPIRegister(0X5B, 0x04);
-        delay(1);
         writeSPIRegister(0X5C, 0x04);
-        ESP_LOGI("LCD : ", "Init step 7\n");
-        delay(2);
+        // ESP_LOGI("LCD : ", "Init step 7\n");
+        delay(1);
         writeSPIRegister(0X5B, 0x00);
-        delay(1);
         writeSPIRegister(0X5C, 0x00);
-        ESP_LOGI("LCD : ", "Init step 8\n");
-        delay(1);
+        // ESP_LOGI("LCD : ", "Init step 8\n");
         writeSPIRegister(0X53, 0x00);
-        ESP_LOGI("LCD : ", "Init step 9\n");
+        // ESP_LOGI("LCD : ", "Init step 9\n");
         delay(1);
         writeSPIRegister(0X03, 0x20);
         ESP_LOGI("LCD : ", "POWER ON SEQUENCE DONE\n");
@@ -298,13 +298,13 @@ extern "C"
         ESP_LOGI(TAG, "Read data: 0x%02X", data0X09);
 
         // writeSPIRegister(0X18, 0xA0);
-        read_data = readSPIRegister(0X18);
+        
+        byte read_data = readSPIRegister(0X18);
         ESP_LOGI(TAG, "Brighness: 0x%02X", read_data);
         while (1)
         {
             // raise the task priority of LVGL and/or reduce the handler period can improve the performance
             vTaskDelay(pdMS_TO_TICKS(10));
-            digitalWrite()
             // The task running lv_timer_handler should have lower priority than that running `lv_tick_inc`
             lv_timer_handler();
         }

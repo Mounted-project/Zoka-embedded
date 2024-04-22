@@ -8,7 +8,7 @@ constexpr uint8_t LCD_SPI_SCLK = 6;
 constexpr uint8_t LCD_SPI_CS = 7;
 
 SPIClass spi(HSPI); // Use HSPI peripheral
-SPISettings spiSettings(800000, LSBFIRST, SPI_MODE0);
+SPISettings spiSettings(800000, LSBFIRST, SPI_MODE3);
 
 void writeSPIRegister(byte reg, byte value)
 {
