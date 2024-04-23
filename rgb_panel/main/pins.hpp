@@ -29,25 +29,25 @@ uint8_t LCD_XCLR = 8;
 //////////////////// Please update the following configuration according to your LCD spec //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT SURE IF IT WORKS
+#define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT USED, SET TO -1 AS ASKED BY ESP-IDF
 uint8_t EXAMPLE_PIN_NUM_HSYNC = 3;
 uint8_t EXAMPLE_PIN_NUM_VSYNC = 46;
-uint8_t EXAMPLE_PIN_NUM_DE = 0; // NOT SURE IF IT WORKS
+#define EXAMPLE_PIN_NUM_DE -1 // NOT USED, SET TO -1 AS ASKED BY ESP-IDF
 uint8_t EXAMPLE_PIN_NUM_PCLK = 9;
-uint8_t LCD_B0 = 13;  // B0
-uint8_t LCD_B1 = 14;  // B1
-uint8_t LCD_B2 = 45;  // B2
-uint8_t LCD_B3 = 47;  // B3
-uint8_t LCD_B4 = 48;  // B4
-uint8_t LCD_G0 = 39;  // G0
-uint8_t LCD_G1 = 38;  // G1
-uint8_t LCD_G2 = 12;  // G2
-uint8_t LCD_G3 = 10;  // G3
-uint8_t LCD_G4 = 11;  // G4
-uint8_t LCD_G5 = 11; // G5
-uint8_t LCD_R0 = 1;  // R0
-uint8_t LCD_R1 = 43; // R1
-uint8_t LCD_R2 = 42; // R2
-uint8_t LCD_R3 = 41; // R3
-uint8_t LCD_R4 = 40; // R4
-uint8_t EXAMPLE_PIN_NUM_DISP_EN = 0; // NOT SURE IF IT WORKS
+uint8_t LCD_B0 = 13;               // B0
+uint8_t LCD_B1 = 14;               // B1
+uint8_t LCD_B2 = 45;               // B2
+uint8_t LCD_B3 = 47;               // B3
+uint8_t LCD_B4 = 48;               // B4
+uint8_t LCD_G0 = 39;               // G0
+uint8_t LCD_G1 = 38;               // G1
+uint8_t LCD_G2 = 12;               // G2
+uint8_t LCD_G3 = 10;               // G3
+uint8_t LCD_G4 = 11;               // G4
+uint8_t LCD_G5 = 11;               // G5
+uint8_t LCD_R0 = 1;                // R0
+uint8_t LCD_R1 = 43;               // R1
+uint8_t LCD_R2 = 42;               // R2
+uint8_t LCD_R3 = 41;               // R3
+uint8_t LCD_R4 = 40;               // R4
+#define EXAMPLE_PIN_NUM_DISP_EN -1 // NOT USED, SET TO -1 AS ASKED BY ESP-IDF
