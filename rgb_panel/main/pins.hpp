@@ -30,8 +30,8 @@ uint8_t LCD_XCLR = 8;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT SURE IF IT WORKS
-uint8_t EXAMPLE_PIN_NUM_HSYNC = 46;
-uint8_t EXAMPLE_PIN_NUM_VSYNC = 3;
+uint8_t EXAMPLE_PIN_NUM_HSYNC = 3;
+uint8_t EXAMPLE_PIN_NUM_VSYNC = 46;
 uint8_t EXAMPLE_PIN_NUM_DE = 0; // NOT SURE IF IT WORKS
 uint8_t EXAMPLE_PIN_NUM_PCLK = 9;
 uint8_t LCD_B0 = 13;  // B0
