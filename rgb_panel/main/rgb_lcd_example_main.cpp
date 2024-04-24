@@ -158,23 +158,23 @@ extern "C"
         panel_config.data_gpio_nums[7] = LCD_G2;
         panel_config.data_gpio_nums[8] = LCD_G3;
         panel_config.data_gpio_nums[9] = LCD_G4;
-        panel_config.data_gpio_nums[10] =LCD_G5;
-        panel_config.data_gpio_nums[11] =LCD_R0;
-        panel_config.data_gpio_nums[12] =LCD_R1;
-        panel_config.data_gpio_nums[13] =LCD_R2;
-        panel_config.data_gpio_nums[14] =LCD_R3;
-        panel_config.data_gpio_nums[15] =LCD_R4;
+        panel_config.data_gpio_nums[10] = LCD_G5;
+        panel_config.data_gpio_nums[11] = LCD_R0;
+        panel_config.data_gpio_nums[12] = LCD_R1;
+        panel_config.data_gpio_nums[13] = LCD_R2;
+        panel_config.data_gpio_nums[14] = LCD_R3;
+        panel_config.data_gpio_nums[15] = LCD_R4;
 
         panel_config.timings.pclk_hz = EXAMPLE_LCD_PIXEL_CLOCK_HZ;
         panel_config.timings.h_res = EXAMPLE_LCD_H_RES;
         panel_config.timings.v_res = EXAMPLE_LCD_V_RES;
         panel_config.timings.hsync_back_porch = 32;
         panel_config.timings.hsync_front_porch = 20;
-        panel_config.timings.hsync_pulse_width = 1;
+        panel_config.timings.hsync_pulse_width = 16;
         panel_config.timings.vsync_back_porch = 32;
         panel_config.timings.vsync_front_porch = 19;
-        panel_config.timings.vsync_pulse_width = 1;
-        panel_config.timings.flags.pclk_active_neg = 0;
+        panel_config.timings.vsync_pulse_width = 6;
+        panel_config.timings.flags.pclk_active_neg = 1; // TODO : WAS 0
         panel_config.flags.fb_in_psram = 1;
         panel_config.flags.double_fb = 0;
 
@@ -258,7 +258,7 @@ extern "C"
         digitalWrite(LCD_XCLR, HIGH);
         // delay(2);
         // ESP_LOGI("LCD : ", "Init step 3\n");
-        
+
         // byte read_data;
         delay(11);
         writeSPIRegister(0X03, 0xA0);
@@ -276,7 +276,7 @@ extern "C"
         writeSPIRegister(0X5C, 0x4D);
         // ESP_LOGI("LCD : ", "Init step 4\n");
         // delay(1);
-        writeSPIRegister(0X00, 0x0F);
+        writeSPIRegister(0X00, 0x0D);
         // ESP_LOGI("LCD : ", "Init step 5\n");
         delay(1);
         writeSPIRegister(0X04, 0x1F);
@@ -298,13 +298,22 @@ extern "C"
         ESP_LOGI(TAG, "Read data: 0x%02X", data0X09);
 
         // writeSPIRegister(0X18, 0xA0);
-        
+
         byte read_data = readSPIRegister(0X18);
         ESP_LOGI(TAG, "Brighness: 0x%02X", read_data);
         while (1)
         {
             // raise the task priority of LVGL and/or reduce the handler period can improve the performance
             vTaskDelay(pdMS_TO_TICKS(10));
+            if (MCP.digitalRead(BUTTON_ENCODER) == false)
+            {
+
+                MCP.digitalWrite(ENABLE_10V, LOW);
+                delay(5);
+                MCP.digitalWrite(ENABLE_1_8V, LOW);
+                delay(5);
+                esp_restart();
+            }
             // The task running lv_timer_handler should have lower priority than that running `lv_tick_inc`
             lv_timer_handler();
         }
