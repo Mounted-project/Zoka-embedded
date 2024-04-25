@@ -40,23 +40,19 @@ def task_install():
     'actions': [
       # f'python3 -m venv {ZOKA_VIRTUAL_ENV}',
       # f'. {ZOKA_VIRTUAL_ENV}/bin/activate',
-      'git submodule update --init --recursive',
+      Interactive(CLI_PRINT('git submodule update --init --recursive')),
       # 'pip install -r requirements.txt',
-      'tools/esp-idf/install.sh',
-      'source tools/esp-idf/export.sh',
+      Interactive(CLI_PRINT('tools/esp-idf/install.sh')),
+      Interactive(CLI_PRINT('source tools/esp-idf/export.sh')),
+      Interactive(WITH_IDF(CLI_PRINT('idf.py fullclean'))),
     ],
-    'uptodate': [
-      'source tools/esp-idf/export.sh && idf.py'
-    ],
-    # 'task_dep': [''],
-    'verbosity': 2,
   }
 
 def task_build():
   """Builds the firmware."""
   return {
     'actions': [
-      Interactive(WITH_IDF(WITH_PACKAGES(CLI_PRINT('idf.py build'))))
+      Interactive(WITH_IDF(CLI_PRINT('idf.py build')))
     ],
   }
 
