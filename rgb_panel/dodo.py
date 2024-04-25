@@ -72,21 +72,13 @@ def task_flash():
     }],
   }
 
-# def task_flash_monitor():
-#     """Flash the firmware to the device"""
-#     def flash_monitor(port):
-#         return f'idf.py -p {port} flash monitor {port}'
-
-#     return {
-#         'actions': [flash_monitor],
-#         'params': [{
-#             'name': 'port',
-#             'short': 'p',
-#             'default': '/dev/ttyUSB0',  # Default port if not specified
-#             'help': 'Serial port to use for flashing the device',
-#         }],
-#         'file_dep': ['build/app.elf'],  # depends on the compiled binary
-#     }
+def task_menuconfig():
+  """Launch the menuconfig."""
+  return {
+    'actions': [
+      Interactive(WITH_IDF(WITH_PACKAGES(CLI_PRINT('idf.py menuconfig'))))
+    ],
+  }
 
 def task_monitor():
   """Monitors the connected Zoka."""
