@@ -27,7 +27,8 @@ def WITH_IDF(s):
   return f'source {path.join(IDF_PATH, "export.sh")} && {s}'
 
 def WITH_PACKAGES(s):
-  return f'pip install -r requirements.txt && {s}'
+  return f'echo OK'
+  # return f'pip install -r requirements.txt && {s}'
 
 def CLI_PRINT(s):
   return '1>&2 ' + s
@@ -37,11 +38,12 @@ def task_install():
   """Creates Python virtual env and installs the ESP-IDF toolchain and Pip dependencies in it."""
   return {
     'actions': [
-      f'python3 -m venv {ZOKA_VIRTUAL_ENV}',
-      f'. {ZOKA_VIRTUAL_ENV}/bin/activate',
+      # f'python3 -m venv {ZOKA_VIRTUAL_ENV}',
+      # f'. {ZOKA_VIRTUAL_ENV}/bin/activate',
       'git submodule update --init --recursive',
-      'pip install -r requirements.txt',
+      # 'pip install -r requirements.txt',
       'tools/esp-idf/install.sh',
+      'source tools/esp-idf/export.sh',
     ],
     'uptodate': [
       'source tools/esp-idf/export.sh && idf.py'
@@ -72,13 +74,21 @@ def task_flash():
     }],
   }
 
-def task_menuconfig():
-  """Launch the menuconfig."""
-  return {
-    'actions': [
-      Interactive(WITH_IDF(WITH_PACKAGES(CLI_PRINT('idf.py menuconfig'))))
-    ],
-  }
+# def task_flash_monitor():
+#     """Flash the firmware to the device"""
+#     def flash_monitor(port):
+#         return f'idf.py -p {port} flash monitor {port}'
+
+#     return {
+#         'actions': [flash_monitor],
+#         'params': [{
+#             'name': 'port',
+#             'short': 'p',
+#             'default': '/dev/ttyUSB0',  # Default port if not specified
+#             'help': 'Serial port to use for flashing the device',
+#         }],
+#         'file_dep': ['build/app.elf'],  # depends on the compiled binary
+#     }
 
 def task_monitor():
   """Monitors the connected Zoka."""
