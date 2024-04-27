@@ -299,10 +299,20 @@ extern "C"
         byte data0X09 = readSPIRegister(0x09);
         ESP_LOGI(TAG, "Read data: 0x%02X", data0X09);
 
-        // writeSPIRegister(0X18, 0xA0);
+        writeSPIRegister(0X18, 0xFF);
+        writeSPIRegister(0X19, 0x7F);
+        writeSPIRegister(0X1A, 0x7F);
+        writeSPIRegister(0X1B, 0x7F);
+
+        writeSPIRegister(0X05, 0x0F);
+        writeSPIRegister(0X1D, 0xFF);
 
         byte read_data = readSPIRegister(0X18);
         ESP_LOGI(TAG, "Brighness: 0x%02X", read_data);
+        read_data = readSPIRegister(0X05);
+        ESP_LOGI(TAG, "Luminance: 0x%02X", read_data);
+        read_data = readSPIRegister(0X08);
+        ESP_LOGI(TAG, "Check lum and caldac = 0x00: 0x%02X", read_data);
         while (1)
         {
             // raise the task priority of LVGL and/or reduce the handler period can improve the performance
