@@ -27,13 +27,9 @@ constexpr uint8_t I2C_SCL = 2;
 //////////////////// Please update the following configuration according to your LCD spec //////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define EXAMPLE_PIN_NUM_DE -1       // NOT USED, SET TO -1 AS ASKED BY ESP-IDF
-#define EXAMPLE_PIN_NUM_DISP_EN -1  // NOT USED, SET TO -1 AS ASKED BY ESP-IDF
-#define EXAMPLE_PIN_NUM_BK_LIGHT -1 // NOT USED, SET TO -1 AS ASKED BY ESP-IDF
-
-uint8_t EXAMPLE_PIN_NUM_PCLK = 9;
-uint8_t EXAMPLE_PIN_NUM_HSYNC = 3;
-uint8_t EXAMPLE_PIN_NUM_VSYNC = 46;
+uint8_t LCD_PCLK = 9;
+uint8_t LCD_HSYNC = 3;
+uint8_t LCD_VSYNC = 46;
 uint8_t LCD_XCLR = 8;
 
 uint8_t LCD_B0 = 13; // B0

@@ -75,6 +75,27 @@ extern "C"
 {
     void app_main()
     {
+        gpio_set_drive_capability((gpio_num_t)LCD_PCLK, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_HSYNC, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_VSYNC, GPIO_DRIVE_CAP_3);
+
+        gpio_set_drive_capability((gpio_num_t)LCD_B0, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_B1, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_B2, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_B3, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_B4, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_G0, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_G1, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_G2, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_G3, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_G4, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_G5, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_R0, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_R1, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_R2, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_R3, GPIO_DRIVE_CAP_3);
+        gpio_set_drive_capability((gpio_num_t)LCD_R4, GPIO_DRIVE_CAP_3);
+
         initArduino();
         ESP_LOGI(TAG, "Stared app_main");
         initLcdSpi();
@@ -122,13 +143,6 @@ extern "C"
         assert(sem_gui_ready);
 #endif
 
-#if EXAMPLE_PIN_NUM_BK_LIGHT >= 0
-        ESP_LOGI(TAG, "Turn off LCD backlight");
-        gpio_config_t bk_gpio_config = {
-            .mode = GPIO_MODE_OUTPUT,
-            .pin_bit_mask = 1ULL << EXAMPLE_PIN_NUM_BK_LIGHT};
-        ESP_ERROR_CHECK(gpio_config(&bk_gpio_config));
-#endif
         ESP_LOGI(TAG, "Install RGB LCD panel driver");
         esp_lcd_panel_handle_t panel_handle = NULL;
         esp_lcd_rgb_panel_config_t panel_config;
@@ -143,11 +157,11 @@ extern "C"
 #endif
         panel_config.bounce_buffer_size_px = 0; // JULIEN
         panel_config.clk_src = LCD_CLK_SRC_DEFAULT;
-        panel_config.disp_gpio_num = EXAMPLE_PIN_NUM_DISP_EN;
-        panel_config.pclk_gpio_num = EXAMPLE_PIN_NUM_PCLK;
-        panel_config.vsync_gpio_num = EXAMPLE_PIN_NUM_VSYNC;
-        panel_config.hsync_gpio_num = EXAMPLE_PIN_NUM_HSYNC;
-        panel_config.de_gpio_num = EXAMPLE_PIN_NUM_DE;
+        panel_config.disp_gpio_num = -1;
+        panel_config.pclk_gpio_num = LCD_PCLK;
+        panel_config.vsync_gpio_num = LCD_VSYNC;
+        panel_config.hsync_gpio_num = LCD_HSYNC;
+        panel_config.de_gpio_num = -1;
         panel_config.bits_per_pixel = 0;
 
         panel_config.data_gpio_nums[0] = LCD_B0;
@@ -178,7 +192,6 @@ extern "C"
         panel_config.timings.vsync_pulse_width = 6;
         panel_config.timings.flags.pclk_active_neg = 1; // TODO : WAS 0
         panel_config.flags.fb_in_psram = 1;
-        panel_config.flags.double_fb = 0;
 
         size_t fb_size = panel_config.timings.h_res * panel_config.timings.v_res * panel_config.data_width / 8;
 
@@ -201,11 +214,6 @@ extern "C"
         ESP_LOGI(TAG, "Initialize RGB LCD panel");
         ESP_ERROR_CHECK(esp_lcd_panel_reset(panel_handle));
         ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
-
-#if EXAMPLE_PIN_NUM_BK_LIGHT >= 0
-        ESP_LOGI(TAG, "Turn on LCD backlight");
-        gpio_set_level(EXAMPLE_PIN_NUM_BK_LIGHT, EXAMPLE_LCD_BK_LIGHT_ON_LEVEL);
-#endif
 
         ESP_LOGI(TAG, "Initialize LVGL library");
         lv_init();
@@ -313,10 +321,13 @@ extern "C"
         ESP_LOGI(TAG, "Luminance: 0x%02X", read_data);
         read_data = readSPIRegister(0X08);
         ESP_LOGI(TAG, "Check lum and caldac = 0x00: 0x%02X", read_data);
+        TaskHandle_t xTask = xTaskGetCurrentTaskHandle();
+        vTaskPrioritySet(xTask, 24);
+
         while (1)
         {
             // raise the task priority of LVGL and/or reduce the handler period can improve the performance
-            vTaskDelay(pdMS_TO_TICKS(10));
+            vTaskDelay(pdMS_TO_TICKS(1));
             if (MCP.digitalRead(BUTTON_ENCODER) == false)
             {
 
