@@ -214,6 +214,9 @@ extern "C"
         ESP_LOGI(TAG, "Initialize RGB LCD panel");
         ESP_ERROR_CHECK(esp_lcd_panel_reset(panel_handle));
         ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
+        ESP_ERROR_CHECK(esp_lcd_panel_swap_xy(panel_handle, true));
+        ESP_ERROR_CHECK(esp_lcd_panel_mirror(panel_handle, true, false));
+        // ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
 
         ESP_LOGI(TAG, "Initialize LVGL library");
         lv_init();
@@ -241,7 +244,6 @@ extern "C"
         disp_drv.flush_cb = example_lvgl_flush_cb;
         disp_drv.draw_buf = &disp_buf;
         disp_drv.user_data = panel_handle;
-        disp_drv.sw_rotate = true;
 #if CONFIG_EXAMPLE_DOUBLE_FB
         disp_drv.full_refresh = true; // the full_refresh mode can maintain the synchronization between the two frame buffers
 #endif
