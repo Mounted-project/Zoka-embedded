@@ -49,6 +49,18 @@
           255
         ],
         "InheritedType": 0
+      },
+      {
+        "nid": 0,
+        "strtype": "THEME_COLOR",
+        "strval": "DEVHIGHLIGHT",
+        "intarray": [
+          255,
+          0,
+          0,
+          255
+        ],
+        "InheritedType": 0
       }
     ]
   },
