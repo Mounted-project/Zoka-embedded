@@ -1143,91 +1143,91 @@
                           },
                           {
                             "nid": -1075596844,
-                            "compnid": -83904837,
+                            "compnid": 143870088,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -2010141778,
-                            "compnid": 468923642,
+                            "compnid": -1577621434,
                             "strtype": "_style/StyleState",
                             "strval": "PRESSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 184776006,
-                            "compnid": -123279853,
+                            "compnid": 1851709101,
                             "strtype": "_style/StyleState",
                             "strval": "DISABLED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1061396659,
-                            "compnid": 322219011,
+                            "compnid": -166724493,
                             "strtype": "_style/StyleState",
                             "strval": "SCROLLED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1148248626,
-                            "compnid": 697623346,
+                            "compnid": -2002347760,
                             "strtype": "_style/StyleState",
                             "strval": "FOCUSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1774757096,
-                            "compnid": -1277831478,
+                            "compnid": 1550075931,
                             "strtype": "_style/StyleState",
                             "strval": "FOCUS_KEY",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1454272313,
-                            "compnid": -361542515,
+                            "compnid": -418657520,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|FOCUSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1188372696,
-                            "compnid": 604574710,
+                            "compnid": -702852617,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|PRESSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -652449805,
-                            "compnid": 1132748042,
+                            "compnid": -199070290,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|FOCUS_KEY",
                             "InheritedType": 1
                           },
                           {
                             "nid": 753456198,
-                            "compnid": -867541340,
+                            "compnid": -1623808236,
                             "strtype": "_style/StyleState",
                             "strval": "USER_1",
                             "InheritedType": 1
                           },
                           {
                             "nid": -290844018,
-                            "compnid": 319447062,
+                            "compnid": 155495717,
                             "strtype": "_style/StyleState",
                             "strval": "USER_2",
                             "InheritedType": 1
                           },
                           {
                             "nid": -2035168,
-                            "compnid": 1738335400,
+                            "compnid": 1035206306,
                             "strtype": "_style/StyleState",
                             "strval": "USER_3",
                             "InheritedType": 1
                           },
                           {
                             "nid": 217703305,
-                            "compnid": 398554023,
+                            "compnid": -1088502277,
                             "strtype": "_style/StyleState",
                             "strval": "USER_4",
                             "InheritedType": 1
@@ -1271,91 +1271,91 @@
                           },
                           {
                             "nid": 1791290367,
-                            "compnid": 835797604,
+                            "compnid": 2084008624,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1885876294,
-                            "compnid": -1161809680,
+                            "compnid": 1868764294,
                             "strtype": "_style/StyleState",
                             "strval": "PRESSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 2036914419,
-                            "compnid": -1895138888,
+                            "compnid": 381536761,
                             "strtype": "_style/StyleState",
                             "strval": "DISABLED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -951258456,
-                            "compnid": -233121257,
+                            "compnid": -63035955,
                             "strtype": "_style/StyleState",
                             "strval": "SCROLLED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1753536732,
-                            "compnid": 1333095276,
+                            "compnid": 1703095810,
                             "strtype": "_style/StyleState",
                             "strval": "FOCUSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1829380415,
-                            "compnid": -1105462419,
+                            "compnid": 251327660,
                             "strtype": "_style/StyleState",
                             "strval": "FOCUS_KEY",
                             "InheritedType": 1
                           },
                           {
                             "nid": -2051121503,
-                            "compnid": 1802212923,
+                            "compnid": 1334687072,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|FOCUSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1346042551,
-                            "compnid": 958875801,
+                            "compnid": 121606808,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|PRESSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 18641647,
-                            "compnid": 33728228,
+                            "compnid": -588951730,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|FOCUS_KEY",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1477036759,
-                            "compnid": -1997382080,
+                            "compnid": -951344101,
                             "strtype": "_style/StyleState",
                             "strval": "USER_1",
                             "InheritedType": 1
                           },
                           {
                             "nid": -622486762,
-                            "compnid": 174783226,
+                            "compnid": 988631924,
                             "strtype": "_style/StyleState",
                             "strval": "USER_2",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1223774646,
-                            "compnid": -1136612976,
+                            "compnid": 1933101853,
                             "strtype": "_style/StyleState",
                             "strval": "USER_3",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1604327948,
-                            "compnid": 29595884,
+                            "compnid": -374128401,
                             "strtype": "_style/StyleState",
                             "strval": "USER_4",
                             "InheritedType": 1
@@ -1736,91 +1736,91 @@
                       },
                       {
                         "nid": 1954465337,
-                        "compnid": 1002108871,
+                        "compnid": -1576352499,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 2064412280,
-                        "compnid": 2015229840,
+                        "compnid": -574260499,
                         "strtype": "_style/StyleState",
                         "strval": "PRESSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 149558174,
-                        "compnid": 694873317,
+                        "compnid": 1685908561,
                         "strtype": "_style/StyleState",
                         "strval": "DISABLED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 479866327,
-                        "compnid": 1759793430,
+                        "compnid": 835793358,
                         "strtype": "_style/StyleState",
                         "strval": "SCROLLED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1537144058,
-                        "compnid": -1498337491,
+                        "compnid": -1783575689,
                         "strtype": "_style/StyleState",
                         "strval": "FOCUSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": -135607149,
-                        "compnid": -1920370478,
+                        "compnid": -11879562,
                         "strtype": "_style/StyleState",
                         "strval": "FOCUS_KEY",
                         "InheritedType": 1
                       },
                       {
                         "nid": 182230122,
-                        "compnid": -2097222689,
+                        "compnid": 1409589579,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED|FOCUSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": -2078743332,
-                        "compnid": 48541310,
+                        "compnid": 450812902,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED|PRESSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 60838411,
-                        "compnid": 2067109808,
+                        "compnid": 885755054,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED|FOCUS_KEY",
                         "InheritedType": 1
                       },
                       {
                         "nid": -1341285491,
-                        "compnid": -1298759227,
+                        "compnid": -1928632321,
                         "strtype": "_style/StyleState",
                         "strval": "USER_1",
                         "InheritedType": 1
                       },
                       {
                         "nid": 23319659,
-                        "compnid": -2041645035,
+                        "compnid": -1594867313,
                         "strtype": "_style/StyleState",
                         "strval": "USER_2",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1101335856,
-                        "compnid": 2005793372,
+                        "compnid": 1024323496,
                         "strtype": "_style/StyleState",
                         "strval": "USER_3",
                         "InheritedType": 1
                       },
                       {
                         "nid": -2002564944,
-                        "compnid": -2115081155,
+                        "compnid": -34980106,
                         "strtype": "_style/StyleState",
                         "strval": "USER_4",
                         "InheritedType": 1
@@ -2174,7 +2174,7 @@
                             "nid": -1501281453,
                             "compnid": -1078452593,
                             "strtype": "_style/Text_Font",
-                            "strval": "montserrat_32",
+                            "strval": "Lexend32",
                             "InheritedType": 3
                           }
                         ],
@@ -2182,91 +2182,91 @@
                       },
                       {
                         "nid": -1250548300,
-                        "compnid": 658733171,
+                        "compnid": 2047817560,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED",
                         "InheritedType": 1
                       },
                       {
                         "nid": -853076624,
-                        "compnid": -2008214067,
+                        "compnid": 2084188175,
                         "strtype": "_style/StyleState",
                         "strval": "PRESSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1049892777,
-                        "compnid": 293109180,
+                        "compnid": -1530894107,
                         "strtype": "_style/StyleState",
                         "strval": "DISABLED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1793809386,
-                        "compnid": -1579345506,
+                        "compnid": -1829196904,
                         "strtype": "_style/StyleState",
                         "strval": "SCROLLED",
                         "InheritedType": 1
                       },
                       {
                         "nid": -2011031997,
-                        "compnid": 1762528778,
+                        "compnid": -27451941,
                         "strtype": "_style/StyleState",
                         "strval": "FOCUSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1499738945,
-                        "compnid": -1309290018,
+                        "compnid": 522539536,
                         "strtype": "_style/StyleState",
                         "strval": "FOCUS_KEY",
                         "InheritedType": 1
                       },
                       {
                         "nid": -960302551,
-                        "compnid": -1164411091,
+                        "compnid": -926538663,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED|FOCUSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": -1888050527,
-                        "compnid": -418838005,
+                        "compnid": -543119038,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED|PRESSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": -2124330984,
-                        "compnid": -1149379396,
+                        "compnid": 621252343,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED|FOCUS_KEY",
                         "InheritedType": 1
                       },
                       {
                         "nid": 488569360,
-                        "compnid": 471392372,
+                        "compnid": -638753543,
                         "strtype": "_style/StyleState",
                         "strval": "USER_1",
                         "InheritedType": 1
                       },
                       {
                         "nid": -50359155,
-                        "compnid": 166118150,
+                        "compnid": -18435261,
                         "strtype": "_style/StyleState",
                         "strval": "USER_2",
                         "InheritedType": 1
                       },
                       {
                         "nid": 832715130,
-                        "compnid": 1857576213,
+                        "compnid": 1297032003,
                         "strtype": "_style/StyleState",
                         "strval": "USER_3",
                         "InheritedType": 1
                       },
                       {
                         "nid": -1428634746,
-                        "compnid": 1379208917,
+                        "compnid": -581906644,
                         "strtype": "_style/StyleState",
                         "strval": "USER_4",
                         "InheritedType": 1
@@ -2583,91 +2583,91 @@
                           },
                           {
                             "nid": 1599614697,
-                            "compnid": -1188175177,
+                            "compnid": 306449534,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -2125928871,
-                            "compnid": -564613038,
+                            "compnid": 459931730,
                             "strtype": "_style/StyleState",
                             "strval": "PRESSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 2112186547,
-                            "compnid": 197228898,
+                            "compnid": -1502097006,
                             "strtype": "_style/StyleState",
                             "strval": "DISABLED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -265490584,
-                            "compnid": -372228949,
+                            "compnid": 1463744401,
                             "strtype": "_style/StyleState",
                             "strval": "SCROLLED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1392246668,
-                            "compnid": 1399089723,
+                            "compnid": 1392233668,
                             "strtype": "_style/StyleState",
                             "strval": "FOCUSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1594066342,
-                            "compnid": -975003704,
+                            "compnid": -464398315,
                             "strtype": "_style/StyleState",
                             "strval": "FOCUS_KEY",
                             "InheritedType": 1
                           },
                           {
                             "nid": -370297799,
-                            "compnid": 1901970897,
+                            "compnid": -283292200,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|FOCUSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -2095473034,
-                            "compnid": 1530778837,
+                            "compnid": -608135648,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|PRESSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -579606366,
-                            "compnid": -76039517,
+                            "compnid": -2054132960,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|FOCUS_KEY",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1270739656,
-                            "compnid": 1001759065,
+                            "compnid": -1734365499,
                             "strtype": "_style/StyleState",
                             "strval": "USER_1",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1140282671,
-                            "compnid": 1429642631,
+                            "compnid": -2058266839,
                             "strtype": "_style/StyleState",
                             "strval": "USER_2",
                             "InheritedType": 1
                           },
                           {
                             "nid": 491292507,
-                            "compnid": 1305167634,
+                            "compnid": -1822356626,
                             "strtype": "_style/StyleState",
                             "strval": "USER_3",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1285965790,
-                            "compnid": 1833623687,
+                            "compnid": -1283270806,
                             "strtype": "_style/StyleState",
                             "strval": "USER_4",
                             "InheritedType": 1
@@ -2711,91 +2711,91 @@
                           },
                           {
                             "nid": 1900392042,
-                            "compnid": 1189516648,
+                            "compnid": -1105217459,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1066236701,
-                            "compnid": -1412611741,
+                            "compnid": 1620079550,
                             "strtype": "_style/StyleState",
                             "strval": "PRESSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1627372376,
-                            "compnid": -1208831163,
+                            "compnid": -1242957069,
                             "strtype": "_style/StyleState",
                             "strval": "DISABLED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1016023090,
-                            "compnid": 1423511608,
+                            "compnid": 443864057,
                             "strtype": "_style/StyleState",
                             "strval": "SCROLLED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 577668374,
-                            "compnid": -2141272259,
+                            "compnid": 1703370447,
                             "strtype": "_style/StyleState",
                             "strval": "FOCUSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -348368565,
-                            "compnid": -7920093,
+                            "compnid": -1945151529,
                             "strtype": "_style/StyleState",
                             "strval": "FOCUS_KEY",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1840155825,
-                            "compnid": 1254512598,
+                            "compnid": 260934908,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|FOCUSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": 658905363,
-                            "compnid": 436447611,
+                            "compnid": 1730661044,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|PRESSED",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1285525644,
-                            "compnid": 336688679,
+                            "compnid": -1460070775,
                             "strtype": "_style/StyleState",
                             "strval": "CHECKED|FOCUS_KEY",
                             "InheritedType": 1
                           },
                           {
                             "nid": 1725364438,
-                            "compnid": -414097070,
+                            "compnid": -1936837000,
                             "strtype": "_style/StyleState",
                             "strval": "USER_1",
                             "InheritedType": 1
                           },
                           {
                             "nid": -496733498,
-                            "compnid": -1083152215,
+                            "compnid": -1898970979,
                             "strtype": "_style/StyleState",
                             "strval": "USER_2",
                             "InheritedType": 1
                           },
                           {
                             "nid": 648828417,
-                            "compnid": 284264481,
+                            "compnid": 1967840845,
                             "strtype": "_style/StyleState",
                             "strval": "USER_3",
                             "InheritedType": 1
                           },
                           {
                             "nid": -1823306549,
-                            "compnid": -1859243822,
+                            "compnid": -1891600328,
                             "strtype": "_style/StyleState",
                             "strval": "USER_4",
                             "InheritedType": 1
@@ -3176,91 +3176,91 @@
                       },
                       {
                         "nid": -1587428870,
-                        "compnid": -1009739507,
+                        "compnid": 1861410253,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1966382123,
-                        "compnid": 1990729331,
+                        "compnid": -206933923,
                         "strtype": "_style/StyleState",
                         "strval": "PRESSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": -1789817503,
-                        "compnid": -937537842,
+                        "compnid": -86790413,
                         "strtype": "_style/StyleState",
                         "strval": "DISABLED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1365537878,
-                        "compnid": 1209796410,
+                        "compnid": 1950179337,
                         "strtype": "_style/StyleState",
                         "strval": "SCROLLED",
                         "InheritedType": 1
                       },
                       {
                         "nid": -1671695801,
-                        "compnid": 1256834658,
+                        "compnid": 6256353,
                         "strtype": "_style/StyleState",
                         "strval": "FOCUSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 668191721,
-                        "compnid": -635393016,
+                        "compnid": -472687659,
                         "strtype": "_style/StyleState",
                         "strval": "FOCUS_KEY",
                         "InheritedType": 1
                       },
                       {
                         "nid": 772255811,
-                        "compnid": -1521539676,
+                        "compnid": 1363293319,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED|FOCUSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": -407467736,
-                        "compnid": -2014472840,
+                        "compnid": -514635165,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED|PRESSED",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1163292377,
-                        "compnid": 953036274,
+                        "compnid": 1961088300,
                         "strtype": "_style/StyleState",
                         "strval": "CHECKED|FOCUS_KEY",
                         "InheritedType": 1
                       },
                       {
                         "nid": -679688638,
-                        "compnid": 1083582640,
+                        "compnid": 1189441898,
                         "strtype": "_style/StyleState",
                         "strval": "USER_1",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1887860797,
-                        "compnid": 2059697108,
+                        "compnid": 23780361,
                         "strtype": "_style/StyleState",
                         "strval": "USER_2",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1492918587,
-                        "compnid": -1168720657,
+                        "compnid": 943383186,
                         "strtype": "_style/StyleState",
                         "strval": "USER_3",
                         "InheritedType": 1
                       },
                       {
                         "nid": 1186901346,
-                        "compnid": 1705983285,
+                        "compnid": -324704018,
                         "strtype": "_style/StyleState",
                         "strval": "USER_4",
                         "InheritedType": 1
@@ -3276,7 +3276,7 @@
                 "saved_objtypeKey": "IMAGE"
               }
             ],
-            "locked": true,
+            "locked": false,
             "properties": [
               {
                 "nid": 601759486,
@@ -3613,91 +3613,91 @@
                   },
                   {
                     "nid": 1593337266,
-                    "compnid": 1954351593,
+                    "compnid": 37519493,
                     "strtype": "_style/StyleState",
                     "strval": "CHECKED",
                     "InheritedType": 1
                   },
                   {
                     "nid": 829436481,
-                    "compnid": 834066622,
+                    "compnid": -1373914934,
                     "strtype": "_style/StyleState",
                     "strval": "PRESSED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -1298769305,
-                    "compnid": 402780120,
+                    "compnid": -1745599377,
                     "strtype": "_style/StyleState",
                     "strval": "DISABLED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -428110637,
-                    "compnid": -1540243987,
+                    "compnid": -1803267566,
                     "strtype": "_style/StyleState",
                     "strval": "FOCUSED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -1362947533,
-                    "compnid": 2031230166,
+                    "compnid": -745010437,
                     "strtype": "_style/StyleState",
                     "strval": "FOCUS_KEY",
                     "InheritedType": 1
                   },
                   {
                     "nid": 1599182969,
-                    "compnid": 1193535572,
+                    "compnid": 1374765354,
                     "strtype": "_style/StyleState",
                     "strval": "SCROLLED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -532513006,
-                    "compnid": 1438518708,
+                    "compnid": -1055645906,
                     "strtype": "_style/StyleState",
                     "strval": "CHECKED|FOCUSED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -1083646894,
-                    "compnid": 189077515,
+                    "compnid": -1160753602,
                     "strtype": "_style/StyleState",
                     "strval": "CHECKED|PRESSED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -377405894,
-                    "compnid": 1295994599,
+                    "compnid": 963955879,
                     "strtype": "_style/StyleState",
                     "strval": "CHECKED|FOCUS_KEY",
                     "InheritedType": 1
                   },
                   {
                     "nid": -856834125,
-                    "compnid": 1233578152,
+                    "compnid": -1823948556,
                     "strtype": "_style/StyleState",
                     "strval": "USER_1",
                     "InheritedType": 1
                   },
                   {
                     "nid": 292631916,
-                    "compnid": -1958284865,
+                    "compnid": -1177203212,
                     "strtype": "_style/StyleState",
                     "strval": "USER_2",
                     "InheritedType": 1
                   },
                   {
                     "nid": 1658590366,
-                    "compnid": -1300396198,
+                    "compnid": 416992234,
                     "strtype": "_style/StyleState",
                     "strval": "USER_3",
                     "InheritedType": 1
                   },
                   {
                     "nid": 678523967,
-                    "compnid": 135375760,
+                    "compnid": -473198006,
                     "strtype": "_style/StyleState",
                     "strval": "USER_4",
                     "InheritedType": 1
@@ -3714,98 +3714,98 @@
                 "childs": [
                   {
                     "nid": 1921051672,
-                    "compnid": 764219694,
+                    "compnid": 1739297177,
                     "strtype": "_style/StyleState",
                     "strval": "DEFAULT",
                     "InheritedType": 1
                   },
                   {
                     "nid": 1416588933,
-                    "compnid": -1227964156,
+                    "compnid": -1480860687,
                     "strtype": "_style/StyleState",
                     "strval": "CHECKED",
                     "InheritedType": 1
                   },
                   {
                     "nid": 1953115501,
-                    "compnid": -482056663,
+                    "compnid": 560534999,
                     "strtype": "_style/StyleState",
                     "strval": "PRESSED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -1410660661,
-                    "compnid": 1742528159,
+                    "compnid": -1581940785,
                     "strtype": "_style/StyleState",
                     "strval": "DISABLED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -394759821,
-                    "compnid": -1067739888,
+                    "compnid": -1002337347,
                     "strtype": "_style/StyleState",
                     "strval": "FOCUSED",
                     "InheritedType": 1
                   },
                   {
                     "nid": 1430960139,
-                    "compnid": 2035873836,
+                    "compnid": -1363612114,
                     "strtype": "_style/StyleState",
                     "strval": "FOCUS_KEY",
                     "InheritedType": 1
                   },
                   {
                     "nid": -810632745,
-                    "compnid": -749242396,
+                    "compnid": -1409104069,
                     "strtype": "_style/StyleState",
                     "strval": "SCROLLED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -704647978,
-                    "compnid": 665177406,
+                    "compnid": 775181591,
                     "strtype": "_style/StyleState",
                     "strval": "CHECKED|FOCUSED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -1083010831,
-                    "compnid": 449951494,
+                    "compnid": -261607957,
                     "strtype": "_style/StyleState",
                     "strval": "CHECKED|PRESSED",
                     "InheritedType": 1
                   },
                   {
                     "nid": -1098943380,
-                    "compnid": 1973918747,
+                    "compnid": 1791589631,
                     "strtype": "_style/StyleState",
                     "strval": "CHECKED|FOCUS_KEY",
                     "InheritedType": 1
                   },
                   {
                     "nid": 551521602,
-                    "compnid": 213507216,
+                    "compnid": 1648360470,
                     "strtype": "_style/StyleState",
                     "strval": "USER_1",
                     "InheritedType": 1
                   },
                   {
                     "nid": -2080531540,
-                    "compnid": 182104387,
+                    "compnid": 1544686234,
                     "strtype": "_style/StyleState",
                     "strval": "USER_2",
                     "InheritedType": 1
                   },
                   {
                     "nid": 133856842,
-                    "compnid": -1229024798,
+                    "compnid": 2025684540,
                     "strtype": "_style/StyleState",
                     "strval": "USER_3",
                     "InheritedType": 1
                   },
                   {
                     "nid": 1166216255,
-                    "compnid": -1540095541,
+                    "compnid": 1090616230,
                     "strtype": "_style/StyleState",
                     "strval": "USER_4",
                     "InheritedType": 1
@@ -3818,8 +3818,7 @@
                 "InheritedType": 11
               }
             ],
-            "saved_objtypeKey": "PANEL",
-            "tree_closed": true
+            "saved_objtypeKey": "PANEL"
           },
           {
             "guid": "GUID64259112-122606S6083132",
@@ -6827,7 +6826,7 @@
                                   {
                                     "nid": -553749330,
                                     "strtype": "_style/Text_Font",
-                                    "strval": "montserrat_32",
+                                    "strval": "Lexend32",
                                     "InheritedType": 3
                                   }
                                 ],
@@ -8457,7 +8456,7 @@
                 "saved_objtypeKey": "CONTAINER"
               }
             ],
-            "locked": true,
+            "locked": false,
             "properties": [
               {
                 "nid": -1792677915,
@@ -8493,8 +8492,8 @@
                 "flags": 17,
                 "strtype": "OBJECT/Position",
                 "intarray": [
-                  -2,
-                  1
+                  0,
+                  -3
                 ],
                 "InheritedType": 7
               },
@@ -8503,8 +8502,8 @@
                 "flags": 17,
                 "strtype": "OBJECT/Size",
                 "intarray": [
-                  753,
-                  968
+                  750,
+                  960
                 ],
                 "InheritedType": 7
               },
@@ -20829,9 +20828,9 @@
     "theme_dark": false,
     "theme_color1": 5,
     "theme_color2": 0,
-    "uiExportFolderPath": "",
+    "uiExportFolderPath": "/Users/juliencarayon/Documents/GitHub/Mounted/Zoka-embedded/rgb_panel/main/ui",
     "projectExportFolderPath": "",
-    "backup_cnt": 89,
+    "backup_cnt": 131,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.11",
     "callfuncsexport": "C_FILE",
