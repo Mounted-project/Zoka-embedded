@@ -215,7 +215,7 @@ extern "C"
         ESP_ERROR_CHECK(esp_lcd_panel_reset(panel_handle));
         ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
         ESP_ERROR_CHECK(esp_lcd_panel_swap_xy(panel_handle, true));
-        // ESP_ERROR_CHECK(esp_lcd_panel_mirror(panel_handle, true, false));
+        ESP_ERROR_CHECK(esp_lcd_panel_mirror(panel_handle, true, false));
 
         ESP_LOGI(TAG, "Initialize LVGL library");
         lv_init();
@@ -237,16 +237,17 @@ extern "C"
 
         ESP_LOGI(TAG, "Register display driver to LVGL");
         lv_disp_drv_init(&disp_drv);
+
         disp_drv.hor_res = EXAMPLE_LCD_H_RES;
         disp_drv.ver_res = EXAMPLE_LCD_V_RES;
         disp_drv.flush_cb = example_lvgl_flush_cb;
         disp_drv.draw_buf = &disp_buf;
         disp_drv.user_data = panel_handle;
+        disp_drv.rotated = 1;
 #if CONFIG_EXAMPLE_DOUBLE_FB
         disp_drv.full_refresh = true; // the full_refresh mode can maintain the synchronization between the two frame buffers
 #endif
         lv_disp_t *disp = lv_disp_drv_register(&disp_drv);
-
         ESP_LOGI(TAG, "Install LVGL tick timer");
         // Tick interface for LVGL (using esp_timer to generate 2ms periodic event)
         const esp_timer_create_args_t lvgl_tick_timer_args = {
