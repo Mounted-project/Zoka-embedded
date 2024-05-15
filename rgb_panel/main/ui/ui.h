@@ -23,11 +23,6 @@ void ActivateModeMenu_Animation( lv_obj_t *TargetObject, int delay);
 void DeactivateModeMenu_Animation( lv_obj_t *TargetObject, int delay);
 void ModeMenuMoveSelectionDown_Animation( lv_obj_t *TargetObject, int delay);
 void ModeMenuMoveSelectionUp_Animation( lv_obj_t *TargetObject, int delay);
-// SCREEN: ui_BootScreen
-void ui_BootScreen_screen_init(void);
-extern lv_obj_t *ui_BootScreen;
-extern lv_obj_t *ui_BootImage;
-extern lv_obj_t *ui_BootBar;
 // SCREEN: ui_MainScreen1
 void ui_MainScreen1_screen_init(void);
 extern lv_obj_t *ui_MainScreen1;
@@ -70,6 +65,11 @@ extern lv_obj_t *ui_FOVRACE_CENTER;
 extern lv_obj_t *ui_FOVRACE_BOTTOM_RIGHT;
 extern lv_obj_t *ui_FOVRACE_MIDDLE_LEFT;
 extern lv_obj_t *ui_FOVRACE_TOP_RIGHT;
+// SCREEN: ui_BootScreen
+void ui_BootScreen_screen_init(void);
+extern lv_obj_t *ui_BootScreen;
+extern lv_obj_t *ui_BootImage;
+extern lv_obj_t *ui_BootBar;
 // SCREEN: ui_SelectionMenu
 void ui_SelectionMenu_screen_init(void);
 extern lv_obj_t *ui_SelectionMenu;
@@ -92,9 +92,9 @@ extern lv_obj_t *ui_ButtonMoveModeMenuSelectionDown;
 extern lv_obj_t *ui_ButtonSelectModeMenuSelection;
 extern lv_obj_t *ui____initial_actions0;
 
-LV_IMG_DECLARE( ui_img_m_png);   // assets/M.png
 LV_IMG_DECLARE( ui_img_1513849953);   // assets/battery-full-outline.png
 LV_IMG_DECLARE( ui_img_speed_limit_png);   // assets/speed_limit.png
+LV_IMG_DECLARE( ui_img_m_png);   // assets/M.png
 LV_IMG_DECLARE( ui_img_navigation_png);   // assets/navigation.png
 LV_IMG_DECLARE( ui_img_865313178);   // assets/voiture-de-sport.png
 LV_IMG_DECLARE( ui_img_course_png);   // assets/course.png
@@ -102,8 +102,8 @@ LV_IMG_DECLARE( ui_img_cycle_png);   // assets/cycle.png
 LV_IMG_DECLARE( ui_img_user_png);   // assets/user.png
 
 
-LV_FONT_DECLARE( ui_font_Lexend50);
 LV_FONT_DECLARE( ui_font_Lexend32);
+LV_FONT_DECLARE( ui_font_Lexend50);
 
 
 void ui_init(void);

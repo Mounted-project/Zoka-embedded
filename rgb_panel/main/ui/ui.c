@@ -13,13 +13,6 @@ void ModeMenuMoveSelectionDown_Animation( lv_obj_t *TargetObject, int delay);
 void ModeMenuMoveSelectionUp_Animation( lv_obj_t *TargetObject, int delay);
 
 
-// SCREEN: ui_BootScreen
-void ui_BootScreen_screen_init(void);
-lv_obj_t *ui_BootScreen;
-lv_obj_t *ui_BootImage;
-lv_obj_t *ui_BootBar;
-
-
 // SCREEN: ui_MainScreen1
 void ui_MainScreen1_screen_init(void);
 lv_obj_t *ui_MainScreen1;
@@ -62,6 +55,13 @@ lv_obj_t *ui_FOVRACE_CENTER;
 lv_obj_t *ui_FOVRACE_BOTTOM_RIGHT;
 lv_obj_t *ui_FOVRACE_MIDDLE_LEFT;
 lv_obj_t *ui_FOVRACE_TOP_RIGHT;
+
+
+// SCREEN: ui_BootScreen
+void ui_BootScreen_screen_init(void);
+lv_obj_t *ui_BootScreen;
+lv_obj_t *ui_BootImage;
+lv_obj_t *ui_BootBar;
 
 
 // SCREEN: ui_SelectionMenu
@@ -220,9 +220,8 @@ void ui_init( void )
 lv_disp_t *dispp = lv_disp_get_default();
 lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), false, LV_FONT_DEFAULT);
 lv_disp_set_theme(dispp, theme);
-ui_BootScreen_screen_init();
 ui_MainScreen1_screen_init();
 ui_SelectionMenu_screen_init();
 ui____initial_actions0 = lv_obj_create(NULL);
-lv_disp_load_scr( ui_BootScreen);
+lv_disp_load_scr( ui_MainScreen1);
 }

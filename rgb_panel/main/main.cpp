@@ -26,8 +26,7 @@
 #include "lcd_config.h"
 static const char *TAG = "example";
 
-// The pixel number in horizontal and vertical
-
+static SemaphoreHandle_t lvgl_mux = NULL;
 // we use two semaphores to sync the VSYNC event and the LVGL task, to avoid potential tearing effect
 #if CONFIG_EXAMPLE_AVOID_TEAR_EFFECT_WITH_SEM
 SemaphoreHandle_t sem_vsync_end;
@@ -193,16 +192,6 @@ extern "C"
         panel_config.timings.flags.pclk_active_neg = 1; // TODO : WAS 0
         panel_config.flags.fb_in_psram = 1;
 
-        // size_t fb_size = panel_config.timings.h_res * panel_config.timings.v_res * panel_config.data_width / 8;
-
-        // size_t bb_size = panel_config.bounce_buffer_size_px * panel_config.data_width / 8;
-        // ESP_LOGI(TAG, "fb_size: %zu", fb_size);
-        // ESP_LOGI(TAG, "bb_size: %zu", bb_size);
-        // free_heap = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
-        // ESP_LOGI(TAG, "FREE HEAP: %zu", free_heap);
-        // free_psram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
-        // ESP_LOGI(TAG, "FREE PSRAM: %zu", free_psram);
-
         ESP_ERROR_CHECK(esp_lcd_new_rgb_panel(&panel_config, &panel_handle));
 
         ESP_LOGI(TAG, "Register event callbacks");
@@ -228,7 +217,7 @@ extern "C"
         lv_disp_draw_buf_init(&disp_buf, buf1, buf2, BUFFER_SIZE / sizeof(lv_color_t));
 #else
         ESP_LOGI(TAG, "Allocate separate LVGL draw buffers from PSRAM");
-        buf1 = heap_caps_malloc(BUFFER_SIZE, MALLOC_CAP_SPIRAM);
+        buf1 = heap_caps_malloc(BUFFER_SIZE, MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL);
         assert(buf1);
         // initialize LVGL draw buffers
         lv_disp_draw_buf_init(&disp_buf, buf1, buf2, BUFFER_SIZE / sizeof(lv_color_t));
@@ -323,8 +312,8 @@ extern "C"
         ESP_LOGI(TAG, "Luminance: 0x%02X", read_data);
         read_data = readSPIRegister(0X08);
         ESP_LOGI(TAG, "Check lum and caldac = 0x00: 0x%02X", read_data);
-        TaskHandle_t xTask = xTaskGetCurrentTaskHandle();
-        vTaskPrioritySet(xTask, 24);
+        // TaskHandle_t xTask = xTaskGetCurrentTaskHandle();
+        // vTaskPrioritySet(xTask, 24);
 
         while (1)
         {
