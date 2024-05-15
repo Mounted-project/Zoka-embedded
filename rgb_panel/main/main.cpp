@@ -34,10 +34,8 @@ SemaphoreHandle_t sem_vsync_end;
 SemaphoreHandle_t sem_gui_ready;
 #endif
 
-extern "C"
-{
-    extern void example_lvgl_demo_ui(lv_disp_t *disp);
-}
+extern void example_lvgl_demo_ui(lv_disp_t *disp);
+
 static bool example_on_vsync_event(esp_lcd_panel_handle_t panel, const esp_lcd_rgb_panel_event_data_t *event_data, void *user_data)
 {
     BaseType_t high_task_awoken = pdFALSE;
@@ -153,9 +151,11 @@ extern "C"
         panel_config.flags.no_fb = 0;
 
 #if CONFIG_EXAMPLE_USE_BOUNCE_BUFFER
-        panel_config.bounce_buffer_size_px = 10 * EXAMPLE_LCD_H_RES;
-#endif
+        panel_config.bounce_buffer_size_px = BUFFER_SIZE;
+#else
         panel_config.bounce_buffer_size_px = 0; // JULIEN
+#endif
+
         panel_config.clk_src = LCD_CLK_SRC_DEFAULT;
         panel_config.disp_gpio_num = -1;
         panel_config.pclk_gpio_num = LCD_PCLK;
@@ -193,15 +193,15 @@ extern "C"
         panel_config.timings.flags.pclk_active_neg = 1; // TODO : WAS 0
         panel_config.flags.fb_in_psram = 1;
 
-        size_t fb_size = panel_config.timings.h_res * panel_config.timings.v_res * panel_config.data_width / 8;
+        // size_t fb_size = panel_config.timings.h_res * panel_config.timings.v_res * panel_config.data_width / 8;
 
-        size_t bb_size = panel_config.bounce_buffer_size_px * panel_config.data_width / 8;
-        ESP_LOGI(TAG, "fb_size: %zu", fb_size);
-        ESP_LOGI(TAG, "bb_size: %zu", bb_size);
-        free_heap = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
-        ESP_LOGI(TAG, "FREE HEAP: %zu", free_heap);
-        free_psram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
-        ESP_LOGI(TAG, "FREE PSRAM: %zu", free_psram);
+        // size_t bb_size = panel_config.bounce_buffer_size_px * panel_config.data_width / 8;
+        // ESP_LOGI(TAG, "fb_size: %zu", fb_size);
+        // ESP_LOGI(TAG, "bb_size: %zu", bb_size);
+        // free_heap = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
+        // ESP_LOGI(TAG, "FREE HEAP: %zu", free_heap);
+        // free_psram = heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
+        // ESP_LOGI(TAG, "FREE PSRAM: %zu", free_psram);
 
         ESP_ERROR_CHECK(esp_lcd_new_rgb_panel(&panel_config, &panel_handle));
 
@@ -215,26 +215,24 @@ extern "C"
         ESP_ERROR_CHECK(esp_lcd_panel_reset(panel_handle));
         ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
         ESP_ERROR_CHECK(esp_lcd_panel_swap_xy(panel_handle, true));
-        ESP_ERROR_CHECK(esp_lcd_panel_mirror(panel_handle, true, false));
-        // ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
+        // ESP_ERROR_CHECK(esp_lcd_panel_mirror(panel_handle, true, false));
 
         ESP_LOGI(TAG, "Initialize LVGL library");
         lv_init();
         void *buf1 = NULL;
         void *buf2 = NULL;
 #if CONFIG_EXAMPLE_DOUBLE_FB
-        ESP_LOGI(TAG, "Use frame buffers as LVGL draw buffers");
+        ESP_LOGI(TAG, "Use double frame buffers as LVGL draw buffers");
         ESP_ERROR_CHECK(esp_lcd_rgb_panel_get_frame_buffer(panel_handle, 2, &buf1, &buf2));
         // initialize LVGL draw buffers
-        lv_disp_draw_buf_init(&disp_buf, buf1, buf2, EXAMPLE_LCD_H_RES * EXAMPLE_LCD_V_RES);
+        lv_disp_draw_buf_init(&disp_buf, buf1, buf2, BUFFER_SIZE / sizeof(lv_color_t));
 #else
         ESP_LOGI(TAG, "Allocate separate LVGL draw buffers from PSRAM");
-        buf1 = heap_caps_malloc(EXAMPLE_LCD_H_RES * 100 * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
+        buf1 = heap_caps_malloc(BUFFER_SIZE, MALLOC_CAP_SPIRAM);
         assert(buf1);
-        buf2 = heap_caps_malloc(EXAMPLE_LCD_H_RES * 100 * sizeof(lv_color_t), MALLOC_CAP_SPIRAM);
-        assert(buf2);
         // initialize LVGL draw buffers
-        lv_disp_draw_buf_init(&disp_buf, buf1, buf2, EXAMPLE_LCD_H_RES * 100);
+        lv_disp_draw_buf_init(&disp_buf, buf1, buf2, BUFFER_SIZE / sizeof(lv_color_t));
+
 #endif // CONFIG_EXAMPLE_DOUBLE_FB
 
         ESP_LOGI(TAG, "Register display driver to LVGL");
@@ -274,7 +272,7 @@ extern "C"
 
         // byte read_data;
         delay(11);
-        writeSPIRegister(0X03, 0xE0); // TODO WAS A0
+        writeSPIRegister(0X03, 0x80); // TODO WAS A0
         // read_data = readSPIRegister(0X03);
         // ESP_LOGI(TAG, "Read data: 0x%02X", read_data);
         // delay(1);
@@ -305,7 +303,7 @@ extern "C"
         writeSPIRegister(0X53, 0x00);
         // ESP_LOGI("LCD : ", "Init step 9\n");
         delay(1);
-        writeSPIRegister(0X03, 0x60); // Was 0x20
+        writeSPIRegister(0X03, 0x00); // Was 0x20
         ESP_LOGI("LCD : ", "POWER ON SEQUENCE DONE\n");
         byte data0X09 = readSPIRegister(0x09);
         ESP_LOGI(TAG, "Read data: 0x%02X", data0X09);

@@ -7,35 +7,222 @@
 #include "ui_helpers.h"
 
 ///////////////////// VARIABLES ////////////////////
+void ActivateModeMenu_Animation( lv_obj_t *TargetObject, int delay);
+void DeactivateModeMenu_Animation( lv_obj_t *TargetObject, int delay);
+void ModeMenuMoveSelectionDown_Animation( lv_obj_t *TargetObject, int delay);
+void ModeMenuMoveSelectionUp_Animation( lv_obj_t *TargetObject, int delay);
 
-// SCREEN: ui_Screen1
-void ui_Screen1_screen_init(void);
-lv_obj_t *ui_Screen1;
-lv_obj_t *ui_Image1;
+
+// SCREEN: ui_BootScreen
+void ui_BootScreen_screen_init(void);
+lv_obj_t *ui_BootScreen;
+lv_obj_t *ui_BootImage;
+lv_obj_t *ui_BootBar;
+
+
+// SCREEN: ui_MainScreen1
+void ui_MainScreen1_screen_init(void);
+lv_obj_t *ui_MainScreen1;
+lv_obj_t *ui_StatusBar;
+lv_obj_t *ui_AltitudeRoller1;
+lv_obj_t *ui_FOV_Navigation;
+lv_obj_t *ui_FOVNAV_TOP_LEFT;
+lv_obj_t *ui_TimeOfArival;
+lv_obj_t *ui_FOVNAV_TOP_MIDDLE;
+lv_obj_t *ui_TImeRemaining;
+lv_obj_t *ui_FOVNAV_TOP_RIGHT;
+lv_obj_t *ui_RemainingDistance;
+lv_obj_t *ui_FOVNAV_CENTER;
+lv_obj_t *ui_FOVNAV_BOTTOM_LEFT;
+lv_obj_t *ui_ArcSpeed;
+lv_obj_t *ui_SpeedLabel;
+lv_obj_t *ui_UnitLabel;
+lv_obj_t *ui_FONAV_BOTTOM_RIGHT;
+lv_obj_t *ui_Image5;
+lv_obj_t *ui_SpeedLimitLabel;
+lv_obj_t *ui_FOVCYCLING_Space;
+lv_obj_t *ui_FOVCYCLING_TOP_LEFT;
+lv_obj_t *ui_FOVCYCLING_TOP_RIGHT;
+lv_obj_t *ui_FOVCYCLING_CENTER;
+lv_obj_t *ui_FOVCYCLING_BOTTOM_LEFT;
+lv_obj_t *ui_FOVCYCLING_BOTTOM_MIDDLE;
+lv_obj_t *ui_FOVCYCLING_BOTTOM_RIGHT;
+lv_obj_t *ui_FOVCUSTOM_Space;
+lv_obj_t *ui_FOVCUSTOM_TOP_LEFT;
+lv_obj_t *ui_FOVCUSTOM_TOP_MIDDLE;
+lv_obj_t *ui_FOVCUSTOM_TOP_RIGHT;
+lv_obj_t *ui_FOVCUSTOM_CENTER;
+lv_obj_t *ui_FOVCUSTOM_BOTTOM_LEFT;
+lv_obj_t *ui_FOVCUSTOM_BOTTOM_MIDDLE;
+lv_obj_t *ui_FOVCUSTOM_BOTTOM_RIGHT;
+lv_obj_t *ui_FOVRACE_Space;
+lv_obj_t *ui_FOVRACE_BOTTOM_LEFT;
+lv_obj_t *ui_FOVRACE_MIDDLE_RIGHT;
+lv_obj_t *ui_FOVRACE_CENTER;
+lv_obj_t *ui_FOVRACE_BOTTOM_RIGHT;
+lv_obj_t *ui_FOVRACE_MIDDLE_LEFT;
+lv_obj_t *ui_FOVRACE_TOP_RIGHT;
+
+
+// SCREEN: ui_SelectionMenu
+void ui_SelectionMenu_screen_init(void);
+lv_obj_t *ui_SelectionMenu;
+lv_obj_t *ui_ModeSelectionPanel;
+lv_obj_t *ui_Selection;
+lv_obj_t *ui_ModeContainer;
+lv_obj_t *ui_Navigation;
+lv_obj_t *ui_Racetrack;
+lv_obj_t *ui_Flag;
+lv_obj_t *ui_Cycling;
+lv_obj_t *ui_Custom;
+void ui_event_ActivateMenu( lv_event_t * e);
+lv_obj_t *ui_ActivateMenu;
+void ui_event_DeactivateMenu( lv_event_t * e);
+lv_obj_t *ui_DeactivateMenu;
+void ui_event_ButtonMoveModeMenuSelectionUp( lv_event_t * e);
+lv_obj_t *ui_ButtonMoveModeMenuSelectionUp;
+void ui_event_ButtonMoveModeMenuSelectionDown( lv_event_t * e);
+lv_obj_t *ui_ButtonMoveModeMenuSelectionDown;
+lv_obj_t *ui_ButtonSelectModeMenuSelection;
 lv_obj_t *ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
 #if LV_COLOR_DEPTH != 16
-#error "LV_COLOR_DEPTH should be 16bit to match SquareLine Studio's settings"
+    #error "LV_COLOR_DEPTH should be 16bit to match SquareLine Studio's settings"
 #endif
-#if LV_COLOR_16_SWAP != 0
-#error "LV_COLOR_16_SWAP should be 0 to match SquareLine Studio's settings"
+#if LV_COLOR_16_SWAP !=0
+    #error "LV_COLOR_16_SWAP should be 0 to match SquareLine Studio's settings"
 #endif
 
 ///////////////////// ANIMATIONS ////////////////////
+void ActivateModeMenu_Animation( lv_obj_t *TargetObject, int delay)
+{
+ui_anim_user_data_t *PropertyAnimation_0_user_data = lv_mem_alloc(sizeof(ui_anim_user_data_t));
+PropertyAnimation_0_user_data->target = TargetObject;
+PropertyAnimation_0_user_data->val = -1;
+lv_anim_t PropertyAnimation_0;
+lv_anim_init(&PropertyAnimation_0);
+lv_anim_set_time(&PropertyAnimation_0, 500);
+lv_anim_set_user_data(&PropertyAnimation_0, PropertyAnimation_0_user_data);
+lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_x );
+lv_anim_set_values(&PropertyAnimation_0, 150, 0 );
+lv_anim_set_path_cb( &PropertyAnimation_0, lv_anim_path_ease_out);
+lv_anim_set_delay( &PropertyAnimation_0, delay + 0 );
+lv_anim_set_deleted_cb( &PropertyAnimation_0, _ui_anim_callback_free_user_data );
+lv_anim_set_playback_time(&PropertyAnimation_0, 0);
+lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
+ lv_anim_set_repeat_count(&PropertyAnimation_0, 0);
+lv_anim_set_repeat_delay(&PropertyAnimation_0, 0);
+lv_anim_set_early_apply( &PropertyAnimation_0, false );
+lv_anim_start(&PropertyAnimation_0);
+
+}
+void DeactivateModeMenu_Animation( lv_obj_t *TargetObject, int delay)
+{
+ui_anim_user_data_t *PropertyAnimation_0_user_data = lv_mem_alloc(sizeof(ui_anim_user_data_t));
+PropertyAnimation_0_user_data->target = TargetObject;
+PropertyAnimation_0_user_data->val = -1;
+lv_anim_t PropertyAnimation_0;
+lv_anim_init(&PropertyAnimation_0);
+lv_anim_set_time(&PropertyAnimation_0, 500);
+lv_anim_set_user_data(&PropertyAnimation_0, PropertyAnimation_0_user_data);
+lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_x );
+lv_anim_set_values(&PropertyAnimation_0, 0, 150 );
+lv_anim_set_path_cb( &PropertyAnimation_0, lv_anim_path_ease_out);
+lv_anim_set_delay( &PropertyAnimation_0, delay + 0 );
+lv_anim_set_deleted_cb( &PropertyAnimation_0, _ui_anim_callback_free_user_data );
+lv_anim_set_playback_time(&PropertyAnimation_0, 0);
+lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
+ lv_anim_set_repeat_count(&PropertyAnimation_0, 0);
+lv_anim_set_repeat_delay(&PropertyAnimation_0, 0);
+lv_anim_set_early_apply( &PropertyAnimation_0, false );
+lv_anim_start(&PropertyAnimation_0);
+
+}
+void ModeMenuMoveSelectionDown_Animation( lv_obj_t *TargetObject, int delay)
+{
+ui_anim_user_data_t *PropertyAnimation_0_user_data = lv_mem_alloc(sizeof(ui_anim_user_data_t));
+PropertyAnimation_0_user_data->target = TargetObject;
+PropertyAnimation_0_user_data->val = -1;
+lv_anim_t PropertyAnimation_0;
+lv_anim_init(&PropertyAnimation_0);
+lv_anim_set_time(&PropertyAnimation_0, 200);
+lv_anim_set_user_data(&PropertyAnimation_0, PropertyAnimation_0_user_data);
+lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_y );
+lv_anim_set_values(&PropertyAnimation_0, 0, 165 );
+lv_anim_set_path_cb( &PropertyAnimation_0, lv_anim_path_ease_out);
+lv_anim_set_delay( &PropertyAnimation_0, delay + 0 );
+lv_anim_set_deleted_cb( &PropertyAnimation_0, _ui_anim_callback_free_user_data );
+lv_anim_set_playback_time(&PropertyAnimation_0, 0);
+lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
+ lv_anim_set_repeat_count(&PropertyAnimation_0, 0);
+lv_anim_set_repeat_delay(&PropertyAnimation_0, 0);
+lv_anim_set_early_apply( &PropertyAnimation_0, true );
+ lv_anim_set_get_value_cb(&PropertyAnimation_0, &_ui_anim_callback_get_y );
+lv_anim_start(&PropertyAnimation_0);
+
+}
+void ModeMenuMoveSelectionUp_Animation( lv_obj_t *TargetObject, int delay)
+{
+ui_anim_user_data_t *PropertyAnimation_0_user_data = lv_mem_alloc(sizeof(ui_anim_user_data_t));
+PropertyAnimation_0_user_data->target = TargetObject;
+PropertyAnimation_0_user_data->val = -1;
+lv_anim_t PropertyAnimation_0;
+lv_anim_init(&PropertyAnimation_0);
+lv_anim_set_time(&PropertyAnimation_0, 200);
+lv_anim_set_user_data(&PropertyAnimation_0, PropertyAnimation_0_user_data);
+lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_y );
+lv_anim_set_values(&PropertyAnimation_0, 0, -165 );
+lv_anim_set_path_cb( &PropertyAnimation_0, lv_anim_path_ease_out);
+lv_anim_set_delay( &PropertyAnimation_0, delay + 0 );
+lv_anim_set_deleted_cb( &PropertyAnimation_0, _ui_anim_callback_free_user_data );
+lv_anim_set_playback_time(&PropertyAnimation_0, 0);
+lv_anim_set_playback_delay(&PropertyAnimation_0, 0);
+ lv_anim_set_repeat_count(&PropertyAnimation_0, 0);
+lv_anim_set_repeat_delay(&PropertyAnimation_0, 0);
+lv_anim_set_early_apply( &PropertyAnimation_0, true );
+ lv_anim_set_get_value_cb(&PropertyAnimation_0, &_ui_anim_callback_get_y );
+lv_anim_start(&PropertyAnimation_0);
+
+}
 
 ///////////////////// FUNCTIONS ////////////////////
+void ui_event_ActivateMenu( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
+if ( event_code == LV_EVENT_CLICKED) {
+      ActivateModeMenu_Animation(ui_ModeSelectionPanel, 0);
+}
+}
+void ui_event_DeactivateMenu( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
+if ( event_code == LV_EVENT_CLICKED) {
+      DeactivateModeMenu_Animation(ui_ModeSelectionPanel, 0);
+}
+}
+void ui_event_ButtonMoveModeMenuSelectionUp( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
+if ( event_code == LV_EVENT_CLICKED) {
+      ModeMenuMoveSelectionUp_Animation(ui_Selection, 0);
+}
+}
+void ui_event_ButtonMoveModeMenuSelectionDown( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
+if ( event_code == LV_EVENT_CLICKED) {
+      ModeMenuMoveSelectionDown_Animation(ui_Selection, 0);
+}
+}
 
 ///////////////////// SCREENS ////////////////////
 
-void ui_init(void) {
-  lv_disp_t *dispp = lv_disp_get_default();
-  lv_disp_set_rotation(dispp, LV_DISP_ROT_90);
-  lv_theme_t *theme = lv_theme_default_init(
-      dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED),
-      false, LV_FONT_DEFAULT);
-  lv_disp_set_theme(dispp, theme);
-  ui_Screen1_screen_init();
-  ui____initial_actions0 = lv_obj_create(NULL);
-  lv_disp_load_scr(ui_Screen1);
+void ui_init( void )
+{LV_EVENT_GET_COMP_CHILD = lv_event_register_id();
+
+lv_disp_t *dispp = lv_disp_get_default();
+lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), false, LV_FONT_DEFAULT);
+lv_disp_set_theme(dispp, theme);
+ui_BootScreen_screen_init();
+ui_MainScreen1_screen_init();
+ui_SelectionMenu_screen_init();
+ui____initial_actions0 = lv_obj_create(NULL);
+lv_disp_load_scr( ui_BootScreen);
 }

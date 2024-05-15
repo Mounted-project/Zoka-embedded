@@ -5,6 +5,7 @@
 #define EXAMPLE_LCD_H_RES 1024
 #define EXAMPLE_LCD_V_RES 768
 
+#define BUFFER_SIZE (EXAMPLE_LCD_H_RES * EXAMPLE_LCD_H_RES * 0.1 * sizeof(lv_color_t))
 #if CONFIG_EXAMPLE_DOUBLE_FB
 #define EXAMPLE_LCD_NUM_FB 2
 #else
