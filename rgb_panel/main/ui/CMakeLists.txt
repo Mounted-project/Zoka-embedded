@@ -1,22 +1,26 @@
 SET(SOURCES components/ui_comp_statusbar.c
     components/ui_comp.c
-    screens/ui_MainScreen1.c
     screens/ui_BootScreen.c
+    screens/ui_MainScreen1.c
     screens/ui_SelectionMenu.c
+    screens/ui_ConnectScreen.c
     ui_theme_manager.c
     ui_themes.c
     ui.c
     components/ui_comp_hook.c
     ui_helpers.c
     ui_events.c
+    images/ui_img_m_png.c
     images/ui_img_1513849953.c
     images/ui_img_speed_limit_png.c
-    images/ui_img_m_png.c
     images/ui_img_navigation_png.c
     images/ui_img_865313178.c
     images/ui_img_course_png.c
     images/ui_img_cycle_png.c
     images/ui_img_user_png.c
+    images/ui_img_iphonex_png.c
+    images/ui_img_zoka_front_small_png.c
+    images/ui_img_285769805.c
     fonts/ui_font_Lexend32.c
     fonts/ui_font_Lexend50.c)
 

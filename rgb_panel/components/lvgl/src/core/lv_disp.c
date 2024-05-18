@@ -226,8 +226,8 @@ void lv_disp_set_bg_opa(lv_disp_t *disp, lv_opa_t opa) {
 void lv_scr_load_anim(lv_obj_t *new_scr, lv_scr_load_anim_t anim_type,
                       uint32_t time, uint32_t delay, bool auto_del) {
 
-  // lv_disp_t * d = lv_obj_get_disp(new_scr);
-  lv_disp_t *d = lv_disp_get_default();
+  lv_disp_t *d = lv_obj_get_disp(new_scr);
+  // lv_disp_t *d = lv_disp_get_default();
   if (!d)
     return;
   lv_obj_t *act_scr = lv_scr_act();
@@ -504,8 +504,8 @@ static void scr_load_internal(lv_obj_t *scr) {
 }
 
 static void scr_load_anim_start(lv_anim_t *a) {
-  //   lv_disp_t *d = lv_obj_get_disp(a->var);
-  lv_disp_t *d = lv_disp_get_default();
+  lv_disp_t *d = lv_obj_get_disp(a->var);
+  // lv_disp_t *d = lv_disp_get_default();
   if (!d)
     return;
 

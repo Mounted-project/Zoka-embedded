@@ -86,6 +86,7 @@ static void example_lvgl_port_task(void *arg)
 {
     ESP_LOGI(TAG, "Starting LVGL task");
     uint32_t task_delay_ms = EXAMPLE_LVGL_TASK_MAX_DELAY_MS;
+    ui_init();
     while (1)
     {
         // Lock the mutex due to the LVGL APIs are not thread-safe
@@ -111,35 +112,13 @@ extern "C"
 {
     void app_main()
     {
-        // gpio_set_drive_capability((gpio_num_t)LCD_PCLK, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_HSYNC, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_VSYNC, GPIO_DRIVE_CAP_3);
-
-        // gpio_set_drive_capability((gpio_num_t)LCD_B0, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_B1, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_B2, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_B3, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_B4, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_G0, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_G1, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_G2, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_G3, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_G4, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_G5, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_R0, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_R1, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_R2, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_R3, GPIO_DRIVE_CAP_3);
-        // gpio_set_drive_capability((gpio_num_t)LCD_R4, GPIO_DRIVE_CAP_3);
 
         initArduino();
         ESP_LOGI(TAG, "Stared app_main");
         initLcdSpi();
 
-        pinMode(ESP_POWER_EN, OUTPUT);
-        digitalWrite(ESP_POWER_EN, HIGH);
-        // gpio_set_direction(ESP_POWER_EN, GPIO_MODE_OUTPUT);
-        // gpio_set_level(ESP_POWER_EN, true);
+        gpio_set_level(ESP_POWER_EN, true); // setting the state before setting the gpio as output prevent gpio glitch
+        gpio_set_direction(ESP_POWER_EN, GPIO_MODE_OUTPUT);
 
         Wire.begin(I2C_SDA, I2C_SCL, 100000);
         MCP23017 MCP = MCP23017(MCP23017_ADDR, Wire);
@@ -258,6 +237,7 @@ extern "C"
 #else
         ESP_LOGI(TAG, "Allocate separate LVGL draw buffers from PSRAM");
         buf1 = heap_caps_malloc(BUFFER_SIZE, MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL);
+
         assert(buf1);
         // initialize LVGL draw buffers
         lv_disp_draw_buf_init(&disp_buf, buf1, buf2, BUFFER_SIZE / sizeof(lv_color_t));
@@ -276,7 +256,8 @@ extern "C"
 #if CONFIG_EXAMPLE_DOUBLE_FB
         disp_drv.full_refresh = true; // the full_refresh mode can maintain the synchronization between the two frame buffers
 #endif
-        lv_disp_t *disp = lv_disp_drv_register(&disp_drv);
+        // lv_disp_t *disp = lv_disp_drv_register(&disp_drv);
+        lv_disp_drv_register(&disp_drv);
         ESP_LOGI(TAG, "Install LVGL tick timer");
         // Tick interface for LVGL (using esp_timer to generate 2ms periodic event)
         const esp_timer_create_args_t lvgl_tick_timer_args = {
@@ -289,12 +270,6 @@ extern "C"
         lvgl_mux = xSemaphoreCreateRecursiveMutex();
         assert(lvgl_mux);
         // Lock the mutex due to the LVGL APIs are not thread-safe
-        if (example_lvgl_lock(-1))
-        {
-            ui_init();
-            // Release the mutex
-            example_lvgl_unlock();
-        }
         ESP_LOGI(TAG, "Create LVGL task");
         xTaskCreate(example_lvgl_port_task, "LVGL", EXAMPLE_LVGL_TASK_STACK_SIZE, NULL, EXAMPLE_LVGL_TASK_PRIORITY, NULL);
         pinMode(LCD_XCLR, OUTPUT);
@@ -367,6 +342,7 @@ extern "C"
 
         long buttonPressTime = 0;
         bool buttonPressed = false;
+        bool switchh = false;
         while (1)
         {
             vTaskDelay(1);
@@ -388,13 +364,35 @@ extern "C"
                         MCP.digitalWrite(ENABLE_1_8V, LOW);
                         delay(5);
                         digitalWrite(ESP_POWER_EN, LOW);
-                        buttonPressed = false; // Reset de l'état pour éviter des déclenchements multiples
+                        buttonPressed = false;
+                    }
+                    else if (millis() - buttonPressTime >= 300 && millis() - buttonPressTime <= 300)
+                    {
+                        if (switchh)
+                        {
+                            // lv_obj_del(lv_scr_act());
+                            // lv_disp_load_scr(ui_MainScreen1);
+                            // lv_scr_load_anim(ui_MainScreen1, LV_SCR_LOAD_ANIM_NONE, 0, 0, true);
+                            // lv_obj_clean(lv_scr_act());
+                            _ui_screen_change(&ui_MainScreen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_MainScreen1_screen_init);
+                            switchh = false;
+                        }
+                        else
+                        {
+                            // lv_obj_del(lv_scr_act());
+                            // lv_disp_load_scr(ui_ConnectScreen);
+                            // lv_scr_load_anim(ui_ConnectScreen, LV_SCR_LOAD_ANIM_NONE, 0, 0, true);
+                            // lv_obj_clean(lv_scr_act());
+                            _ui_screen_change(&ui_ConnectScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_ConnectScreen_screen_init);
+                            switchh = true;
+                        }
+                        buttonPressed = false;
                     }
                 }
             }
             else
             {
-                buttonPressed = false; // Si le bouton n'est pas pressé, réinitialise l'état
+                buttonPressed = false;
             }
         }
     }

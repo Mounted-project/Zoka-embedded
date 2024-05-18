@@ -22,15 +22,6 @@ lv_obj_set_align( ui_StatusBar, LV_ALIGN_TOP_MID );
 
 
 
-ui_AltitudeRoller1 = lv_roller_create(ui_MainScreen1);
-lv_roller_set_options( ui_AltitudeRoller1, "15\n10\n5\n0\n-5\n-10\n-15\n-20\n-25\n-30\n-35\n-40\n-45\n-50\n-55\n-60\n-65\n-70\n-75\n-80\n-85\n-90\n-100\n-105\n-100\n", LV_ROLLER_MODE_NORMAL );
-lv_roller_set_selected( ui_AltitudeRoller1, 3, LV_ANIM_OFF);
-lv_obj_set_height( ui_AltitudeRoller1, 100);
-lv_obj_set_width( ui_AltitudeRoller1, lv_pct(14));
-lv_obj_set_x( ui_AltitudeRoller1, 319 );
-lv_obj_set_y( ui_AltitudeRoller1, -391 );
-lv_obj_set_align( ui_AltitudeRoller1, LV_ALIGN_CENTER );
-
 ui_FOV_Navigation = lv_obj_create(ui_MainScreen1);
 lv_obj_remove_style_all(ui_FOV_Navigation);
 lv_obj_set_width( ui_FOV_Navigation, 750);

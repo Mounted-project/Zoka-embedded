@@ -18,23 +18,23 @@ dependencies:
       type: service
     version: 1.4.12
   espressif/esp-sr:
-    component_hash: f2e0e9316ecd263a43f1a0f41578cd363bb41d77b78f8944e0a721232ecb84fc
+    component_hash: 16af25295f531495fe7e36cf2e8c8bb49629be42c38a56f55f4ded825ada0ffc
     source:
       service_url: https://api.components.espressif.com/
       type: service
-    version: 1.7.0
+    version: 1.7.1
   espressif/esp-zboss-lib:
-    component_hash: 11a05772e4eef80824c4400b773ead2777be2b038c4b7b13ab4985bd13ee623d
+    component_hash: 21adf29145975d0f7af5bd7361af993d8ddaa88aaaf22461a3014dbfc2c11521
     source:
       service_url: https://api.components.espressif.com/
       type: service
-    version: 1.2.3
+    version: 1.3.1
   espressif/esp-zigbee-lib:
-    component_hash: b0c59518e72be7980f93580879d052f5b0fc8f20797ec1f111630435d320806e
+    component_hash: 6d458805678838acef528b0443d04684cfe28ef0739c9d632ccfe7b228392295
     source:
       service_url: https://api.components.espressif.com/
       type: service
-    version: 1.2.3
+    version: 1.3.1
   espressif/esp_diag_data_store:
     component_hash: 8849195251dbb8a2d7268335277cfa310cef36e4ac1e90cd59ad3be4269a30d7
     source:
@@ -90,11 +90,11 @@ dependencies:
       type: service
     version: 1.0.3
   espressif/mdns:
-    component_hash: 9ff9c578fc3a5ea3c68e807233e47f2ce6b2492a92d7a9356ae5c29ab45f0fde
+    component_hash: ed10ef031bce505e423c5dbf0fdf2ce7a02df5f9ebffb18df2d6b9852e48817d
     source:
       service_url: https://api.components.espressif.com/
       type: service
-    version: 1.3.0
+    version: 1.3.1
   espressif/qrcode:
     component_hash: 3b493771bc5d6ad30cbf87c25bf784aada8a08c941504355b55d6b75518ed7bc
     source:
@@ -118,12 +118,12 @@ dependencies:
       service_url: https://api.components.espressif.com/
       type: service
     version: 1.14.4
-  lvgl/lvgl:
-    component_hash: 948bff879a345149b83065535bbc4a026ce9f47498a22881e432a264b9098015
+  lvgl:
+    component_hash: null
     source:
-      service_url: https://api.components.espressif.com/
-      type: service
+      path: /Users/juliencarayon/Documents/GitHub/Mounted/Zoka-embedded/rgb_panel/components/lvgl
+      type: local
     version: 8.3.11
-manifest_hash: cee469e92e48c0216ad468c22a582aaf38e77dab060688a87479ebc3dc153db4
+manifest_hash: bfe4240ae37742ea3b61f3556cdecd192a65df52be615fb68c0de53bf3116a34
 target: esp32s3
 version: 1.0.0

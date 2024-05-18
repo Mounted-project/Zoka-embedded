@@ -19,7 +19,7 @@ constexpr uint8_t RGB_LED_G = 13;
 constexpr uint8_t RGB_LED_B = 14;
 
 // ESP32-S3 GPIOs
-constexpr uint8_t ESP_POWER_EN = 44;
+constexpr gpio_num_t ESP_POWER_EN = GPIO_NUM_44;
 constexpr uint8_t I2C_SDA = 15;
 constexpr uint8_t I2C_SCL = 2;
 

@@ -13,11 +13,18 @@ void ModeMenuMoveSelectionDown_Animation( lv_obj_t *TargetObject, int delay);
 void ModeMenuMoveSelectionUp_Animation( lv_obj_t *TargetObject, int delay);
 
 
+// SCREEN: ui_BootScreen
+void ui_BootScreen_screen_init(void);
+lv_obj_t *ui_BootScreen;
+void ui_event_BootImage( lv_event_t * e);
+lv_obj_t *ui_BootImage;
+lv_obj_t *ui_BootBar;
+
+
 // SCREEN: ui_MainScreen1
 void ui_MainScreen1_screen_init(void);
 lv_obj_t *ui_MainScreen1;
 lv_obj_t *ui_StatusBar;
-lv_obj_t *ui_AltitudeRoller1;
 lv_obj_t *ui_FOV_Navigation;
 lv_obj_t *ui_FOVNAV_TOP_LEFT;
 lv_obj_t *ui_TimeOfArival;
@@ -57,13 +64,6 @@ lv_obj_t *ui_FOVRACE_MIDDLE_LEFT;
 lv_obj_t *ui_FOVRACE_TOP_RIGHT;
 
 
-// SCREEN: ui_BootScreen
-void ui_BootScreen_screen_init(void);
-lv_obj_t *ui_BootScreen;
-lv_obj_t *ui_BootImage;
-lv_obj_t *ui_BootBar;
-
-
 // SCREEN: ui_SelectionMenu
 void ui_SelectionMenu_screen_init(void);
 lv_obj_t *ui_SelectionMenu;
@@ -84,6 +84,18 @@ lv_obj_t *ui_ButtonMoveModeMenuSelectionUp;
 void ui_event_ButtonMoveModeMenuSelectionDown( lv_event_t * e);
 lv_obj_t *ui_ButtonMoveModeMenuSelectionDown;
 lv_obj_t *ui_ButtonSelectModeMenuSelection;
+
+
+// SCREEN: ui_ConnectScreen
+void ui_ConnectScreen_screen_init(void);
+lv_obj_t *ui_ConnectScreen;
+lv_obj_t *ui_iPhone;
+lv_obj_t *ui_Panel1;
+lv_obj_t *ui_MountedIcon;
+lv_obj_t *ui_Image6;
+lv_obj_t *ui_Image7;
+lv_obj_t *ui_Label1;
+lv_obj_t *ui_Spinner1;
 lv_obj_t *ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
@@ -187,6 +199,12 @@ lv_anim_start(&PropertyAnimation_0);
 }
 
 ///////////////////// FUNCTIONS ////////////////////
+void ui_event_BootImage( lv_event_t * e) {
+    lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
+if ( event_code == LV_EVENT_CLICKED) {
+      _ui_screen_change( &ui_ConnectScreen, LV_SCR_LOAD_ANIM_FADE_ON, 0, 0, &ui_ConnectScreen_screen_init);
+}
+}
 void ui_event_ActivateMenu( lv_event_t * e) {
     lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
 if ( event_code == LV_EVENT_CLICKED) {
@@ -220,8 +238,10 @@ void ui_init( void )
 lv_disp_t *dispp = lv_disp_get_default();
 lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), false, LV_FONT_DEFAULT);
 lv_disp_set_theme(dispp, theme);
+ui_BootScreen_screen_init();
 ui_MainScreen1_screen_init();
 ui_SelectionMenu_screen_init();
+ui_ConnectScreen_screen_init();
 ui____initial_actions0 = lv_obj_create(NULL);
-lv_disp_load_scr( ui_MainScreen1);
+lv_disp_load_scr( ui_BootScreen);
 }

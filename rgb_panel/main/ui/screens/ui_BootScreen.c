@@ -9,7 +9,6 @@ void ui_BootScreen_screen_init(void)
 {
 ui_BootScreen = lv_obj_create(NULL);
 lv_obj_clear_flag( ui_BootScreen, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-lv_obj_add_event_cb(ui_BootScreen, scr_unloaded_delete_cb, LV_EVENT_SCREEN_UNLOADED, &ui_BootScreen);
 lv_obj_set_style_bg_color(ui_BootScreen, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_opa(ui_BootScreen, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
@@ -35,5 +34,7 @@ lv_obj_set_style_radius(ui_BootBar, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
 lv_obj_set_style_radius(ui_BootBar, 0, LV_PART_INDICATOR| LV_STATE_DEFAULT);
 ui_object_set_themeable_style_property(ui_BootBar, LV_PART_INDICATOR| LV_STATE_DEFAULT, LV_STYLE_BG_COLOR, _ui_theme_color_PRIMARY);
 ui_object_set_themeable_style_property(ui_BootBar, LV_PART_INDICATOR| LV_STATE_DEFAULT, LV_STYLE_BG_OPA, _ui_theme_alpha_PRIMARY);
+
+lv_obj_add_event_cb(ui_BootImage, ui_event_BootImage, LV_EVENT_ALL, NULL);
 
 }
