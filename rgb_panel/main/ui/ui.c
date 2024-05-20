@@ -16,52 +16,8 @@ void ModeMenuMoveSelectionUp_Animation( lv_obj_t *TargetObject, int delay);
 // SCREEN: ui_BootScreen
 void ui_BootScreen_screen_init(void);
 lv_obj_t *ui_BootScreen;
-void ui_event_BootImage( lv_event_t * e);
 lv_obj_t *ui_BootImage;
 lv_obj_t *ui_BootBar;
-
-
-// SCREEN: ui_MainScreen1
-void ui_MainScreen1_screen_init(void);
-lv_obj_t *ui_MainScreen1;
-lv_obj_t *ui_StatusBar;
-lv_obj_t *ui_FOV_Navigation;
-lv_obj_t *ui_FOVNAV_TOP_LEFT;
-lv_obj_t *ui_TimeOfArival;
-lv_obj_t *ui_FOVNAV_TOP_MIDDLE;
-lv_obj_t *ui_TImeRemaining;
-lv_obj_t *ui_FOVNAV_TOP_RIGHT;
-lv_obj_t *ui_RemainingDistance;
-lv_obj_t *ui_FOVNAV_CENTER;
-lv_obj_t *ui_FOVNAV_BOTTOM_LEFT;
-lv_obj_t *ui_ArcSpeed;
-lv_obj_t *ui_SpeedLabel;
-lv_obj_t *ui_UnitLabel;
-lv_obj_t *ui_FONAV_BOTTOM_RIGHT;
-lv_obj_t *ui_Image5;
-lv_obj_t *ui_SpeedLimitLabel;
-lv_obj_t *ui_FOVCYCLING_Space;
-lv_obj_t *ui_FOVCYCLING_TOP_LEFT;
-lv_obj_t *ui_FOVCYCLING_TOP_RIGHT;
-lv_obj_t *ui_FOVCYCLING_CENTER;
-lv_obj_t *ui_FOVCYCLING_BOTTOM_LEFT;
-lv_obj_t *ui_FOVCYCLING_BOTTOM_MIDDLE;
-lv_obj_t *ui_FOVCYCLING_BOTTOM_RIGHT;
-lv_obj_t *ui_FOVCUSTOM_Space;
-lv_obj_t *ui_FOVCUSTOM_TOP_LEFT;
-lv_obj_t *ui_FOVCUSTOM_TOP_MIDDLE;
-lv_obj_t *ui_FOVCUSTOM_TOP_RIGHT;
-lv_obj_t *ui_FOVCUSTOM_CENTER;
-lv_obj_t *ui_FOVCUSTOM_BOTTOM_LEFT;
-lv_obj_t *ui_FOVCUSTOM_BOTTOM_MIDDLE;
-lv_obj_t *ui_FOVCUSTOM_BOTTOM_RIGHT;
-lv_obj_t *ui_FOVRACE_Space;
-lv_obj_t *ui_FOVRACE_BOTTOM_LEFT;
-lv_obj_t *ui_FOVRACE_MIDDLE_RIGHT;
-lv_obj_t *ui_FOVRACE_CENTER;
-lv_obj_t *ui_FOVRACE_BOTTOM_RIGHT;
-lv_obj_t *ui_FOVRACE_MIDDLE_LEFT;
-lv_obj_t *ui_FOVRACE_TOP_RIGHT;
 
 
 // SCREEN: ui_SelectionMenu
@@ -89,13 +45,59 @@ lv_obj_t *ui_ButtonSelectModeMenuSelection;
 // SCREEN: ui_ConnectScreen
 void ui_ConnectScreen_screen_init(void);
 lv_obj_t *ui_ConnectScreen;
-lv_obj_t *ui_iPhone;
-lv_obj_t *ui_Panel1;
-lv_obj_t *ui_MountedIcon;
-lv_obj_t *ui_Image6;
-lv_obj_t *ui_Image7;
-lv_obj_t *ui_Label1;
-lv_obj_t *ui_Spinner1;
+lv_obj_t *ui_VisibleArea;
+lv_obj_t *ui_iPhone1;
+lv_obj_t *ui_Panel2;
+lv_obj_t *ui_MountedIcon1;
+lv_obj_t *ui_Zoka;
+lv_obj_t *ui_Image2;
+lv_obj_t *ui_Label2;
+lv_obj_t *ui_Spinner2;
+
+
+// SCREEN: ui_MainScreen
+void ui_MainScreen_screen_init(void);
+lv_obj_t *ui_MainScreen;
+lv_obj_t *ui_VisibleArea1;
+lv_obj_t *ui_StatusBar1;
+lv_obj_t *ui_FOV_Navigation1;
+lv_obj_t *ui_FOVNAV_TOP_LEFT1;
+lv_obj_t *ui_TimeOfArival1;
+lv_obj_t *ui_FOVNAV_TOP_MIDDLE1;
+lv_obj_t *ui_TImeRemaining1;
+lv_obj_t *ui_FOVNAV_TOP_RIGHT1;
+lv_obj_t *ui_RemainingDistance1;
+lv_obj_t *ui_RemainingDistanceUnit;
+lv_obj_t *ui_FOVNAV_CENTER1;
+lv_obj_t *ui_FOVNAV_BOTTOM_LEFT1;
+lv_obj_t *ui_ArcSpeed1;
+lv_obj_t *ui_SpeedLabel1;
+lv_obj_t *ui_UnitLabel1;
+lv_obj_t *ui_FONAV_BOTTOM_RIGHT1;
+lv_obj_t *ui_Image1;
+lv_obj_t *ui_SpeedLimitLabel1;
+lv_obj_t *ui_FOVCYCLING_Space1;
+lv_obj_t *ui_FOVCYCLING_TOP_LEFT1;
+lv_obj_t *ui_FOVCYCLING_TOP_RIGHT1;
+lv_obj_t *ui_FOVCYCLING_CENTER1;
+lv_obj_t *ui_FOVCYCLING_BOTTOM_LEFT1;
+lv_obj_t *ui_FOVCYCLING_BOTTOM_MIDDLE1;
+lv_obj_t *ui_FOVCYCLING_BOTTOM_RIGHT1;
+lv_obj_t *ui_FOVCUSTOM_Space1;
+lv_obj_t *ui_FOVCUSTOM_TOP_LEFT1;
+lv_obj_t *ui_FOVCUSTOM_TOP_MIDDLE1;
+lv_obj_t *ui_FOVCUSTOM_TOP_RIGHT1;
+lv_obj_t *ui_FOVCUSTOM_CENTER1;
+lv_obj_t *ui_FOVCUSTOM_BOTTOM_LEFT1;
+lv_obj_t *ui_FOVCUSTOM_BOTTOM_MIDDLE1;
+lv_obj_t *ui_FOVCUSTOM_BOTTOM_RIGHT1;
+lv_obj_t *ui_FOVRACE_Space1;
+lv_obj_t *ui_FOVRACE_BOTTOM_LEFT1;
+lv_obj_t *ui_FOVRACE_MIDDLE_RIGHT1;
+lv_obj_t *ui_FOVRACE_CENTER1;
+lv_obj_t *ui_FOVRACE_BOTTOM_RIGHT1;
+lv_obj_t *ui_FOVRACE_MIDDLE_LEFT1;
+lv_obj_t *ui_FOVRACE_TOP_RIGHT1;
 lv_obj_t *ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
@@ -199,12 +201,6 @@ lv_anim_start(&PropertyAnimation_0);
 }
 
 ///////////////////// FUNCTIONS ////////////////////
-void ui_event_BootImage( lv_event_t * e) {
-    lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
-if ( event_code == LV_EVENT_CLICKED) {
-      _ui_screen_change( &ui_ConnectScreen, LV_SCR_LOAD_ANIM_FADE_ON, 0, 0, &ui_ConnectScreen_screen_init);
-}
-}
 void ui_event_ActivateMenu( lv_event_t * e) {
     lv_event_code_t event_code = lv_event_get_code(e);lv_obj_t * target = lv_event_get_target(e);
 if ( event_code == LV_EVENT_CLICKED) {
@@ -239,9 +235,9 @@ lv_disp_t *dispp = lv_disp_get_default();
 lv_theme_t *theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED), false, LV_FONT_DEFAULT);
 lv_disp_set_theme(dispp, theme);
 ui_BootScreen_screen_init();
-ui_MainScreen1_screen_init();
 ui_SelectionMenu_screen_init();
 ui_ConnectScreen_screen_init();
+ui_MainScreen_screen_init();
 ui____initial_actions0 = lv_obj_create(NULL);
 lv_disp_load_scr( ui_BootScreen);
 }

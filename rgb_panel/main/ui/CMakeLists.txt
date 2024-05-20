@@ -1,9 +1,9 @@
 SET(SOURCES components/ui_comp_statusbar.c
     components/ui_comp.c
     screens/ui_BootScreen.c
-    screens/ui_MainScreen1.c
     screens/ui_SelectionMenu.c
     screens/ui_ConnectScreen.c
+    screens/ui_MainScreen.c
     ui_theme_manager.c
     ui_themes.c
     ui.c
@@ -22,6 +22,7 @@ SET(SOURCES components/ui_comp_statusbar.c
     images/ui_img_zoka_front_small_png.c
     images/ui_img_285769805.c
     fonts/ui_font_Lexend32.c
-    fonts/ui_font_Lexend50.c)
+    fonts/ui_font_Lexend50.c
+    fonts/ui_font_Lexend24.c)
 
 add_library(ui ${SOURCES})

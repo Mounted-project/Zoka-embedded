@@ -12,86 +12,102 @@ lv_obj_clear_flag( ui_ConnectScreen, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
 lv_obj_set_style_bg_color(ui_ConnectScreen, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_opa(ui_ConnectScreen, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_iPhone = lv_img_create(ui_ConnectScreen);
-lv_img_set_src(ui_iPhone, &ui_img_iphonex_png);
-lv_obj_set_width( ui_iPhone, LV_SIZE_CONTENT);  /// 512
-lv_obj_set_height( ui_iPhone, LV_SIZE_CONTENT);   /// 512
-lv_obj_set_x( ui_iPhone, 234 );
-lv_obj_set_y( ui_iPhone, 0 );
-lv_obj_set_align( ui_iPhone, LV_ALIGN_CENTER );
-lv_obj_add_flag( ui_iPhone, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
-lv_obj_clear_flag( ui_iPhone, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-lv_img_set_zoom(ui_iPhone,150);
-ui_object_set_themeable_style_property(ui_iPhone, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_IMG_RECOLOR, _ui_theme_color_PRIMARY);
-ui_object_set_themeable_style_property(ui_iPhone, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_IMG_RECOLOR_OPA, _ui_theme_alpha_PRIMARY);
+ui_VisibleArea = lv_obj_create(ui_ConnectScreen);
+lv_obj_remove_style_all(ui_VisibleArea);
+lv_obj_set_width( ui_VisibleArea, 606);
+lv_obj_set_height( ui_VisibleArea, 643);
+lv_obj_set_x( ui_VisibleArea, -6 );
+lv_obj_set_y( ui_VisibleArea, -70 );
+lv_obj_set_align( ui_VisibleArea, LV_ALIGN_CENTER );
+lv_obj_clear_flag( ui_VisibleArea, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+ui_object_set_themeable_style_property(ui_VisibleArea, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_BORDER_COLOR, _ui_theme_color_DEVHIGHLIGHT);
+ui_object_set_themeable_style_property(ui_VisibleArea, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_BORDER_OPA, _ui_theme_alpha_DEVHIGHLIGHT);
+lv_obj_set_style_border_width(ui_VisibleArea, 5, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_Panel1 = lv_obj_create(ui_iPhone);
-lv_obj_set_width( ui_Panel1, 100);
-lv_obj_set_height( ui_Panel1, 100);
-lv_obj_set_align( ui_Panel1, LV_ALIGN_CENTER );
-lv_obj_clear_flag( ui_Panel1, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-lv_obj_set_style_radius(ui_Panel1, 32, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_bg_color(ui_Panel1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_bg_opa(ui_Panel1, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_border_width(ui_Panel1, 4, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_border_color(ui_VisibleArea, lv_color_hex(0xFF0000), LV_PART_SCROLLBAR | LV_STATE_DEFAULT );
+lv_obj_set_style_border_opa(ui_VisibleArea, 255, LV_PART_SCROLLBAR| LV_STATE_DEFAULT);
+lv_obj_set_style_border_width(ui_VisibleArea, 3, LV_PART_SCROLLBAR| LV_STATE_DEFAULT);
 
-ui_MountedIcon = lv_img_create(ui_Panel1);
-lv_img_set_src(ui_MountedIcon, &ui_img_m_png);
-lv_obj_set_width( ui_MountedIcon, 453);
-lv_obj_set_height( ui_MountedIcon, 502);
-lv_obj_set_align( ui_MountedIcon, LV_ALIGN_CENTER );
-lv_obj_add_flag( ui_MountedIcon, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
-lv_obj_clear_flag( ui_MountedIcon, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-lv_img_set_zoom(ui_MountedIcon,30);
+ui_iPhone1 = lv_img_create(ui_VisibleArea);
+lv_img_set_src(ui_iPhone1, &ui_img_iphonex_png);
+lv_obj_set_width( ui_iPhone1, LV_SIZE_CONTENT);  /// 512
+lv_obj_set_height( ui_iPhone1, LV_SIZE_CONTENT);   /// 512
+lv_obj_set_x( ui_iPhone1, 180 );
+lv_obj_set_y( ui_iPhone1, 0 );
+lv_obj_set_align( ui_iPhone1, LV_ALIGN_CENTER );
+lv_obj_add_flag( ui_iPhone1, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
+lv_obj_clear_flag( ui_iPhone1, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_img_set_zoom(ui_iPhone1,100);
+ui_object_set_themeable_style_property(ui_iPhone1, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_IMG_RECOLOR, _ui_theme_color_PRIMARY);
+ui_object_set_themeable_style_property(ui_iPhone1, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_IMG_RECOLOR_OPA, _ui_theme_alpha_PRIMARY);
 
-ui_Image6 = lv_img_create(ui_ConnectScreen);
-lv_img_set_src(ui_Image6, &ui_img_zoka_front_small_png);
-lv_obj_set_width( ui_Image6, LV_SIZE_CONTENT);  /// 512
-lv_obj_set_height( ui_Image6, LV_SIZE_CONTENT);   /// 278
-lv_obj_set_x( ui_Image6, -212 );
-lv_obj_set_y( ui_Image6, 0 );
-lv_obj_set_align( ui_Image6, LV_ALIGN_CENTER );
-lv_obj_add_flag( ui_Image6, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
-lv_obj_clear_flag( ui_Image6, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-lv_img_set_zoom(ui_Image6,150);
-lv_obj_set_style_img_recolor(ui_Image6, lv_color_hex(0xFF6900), LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_img_recolor_opa(ui_Image6, 200, LV_PART_MAIN| LV_STATE_DEFAULT);
+ui_Panel2 = lv_obj_create(ui_iPhone1);
+lv_obj_set_width( ui_Panel2, 50);
+lv_obj_set_height( ui_Panel2, 50);
+lv_obj_set_align( ui_Panel2, LV_ALIGN_CENTER );
+lv_obj_clear_flag( ui_Panel2, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_obj_set_style_radius(ui_Panel2, 9, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_bg_color(ui_Panel2, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_bg_opa(ui_Panel2, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_border_width(ui_Panel2, 4, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_Image7 = lv_img_create(ui_ConnectScreen);
-lv_img_set_src(ui_Image7, &ui_img_285769805);
-lv_obj_set_width( ui_Image7, LV_SIZE_CONTENT);  /// 256
-lv_obj_set_height( ui_Image7, LV_SIZE_CONTENT);   /// 256
-lv_obj_set_align( ui_Image7, LV_ALIGN_CENTER );
-lv_obj_add_flag( ui_Image7, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
-lv_obj_clear_flag( ui_Image7, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-lv_img_set_zoom(ui_Image7,128);
-ui_object_set_themeable_style_property(ui_Image7, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_IMG_RECOLOR, _ui_theme_color_PRIMARY);
-ui_object_set_themeable_style_property(ui_Image7, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_IMG_RECOLOR_OPA, _ui_theme_alpha_PRIMARY);
+ui_MountedIcon1 = lv_img_create(ui_Panel2);
+lv_img_set_src(ui_MountedIcon1, &ui_img_m_png);
+lv_obj_set_width( ui_MountedIcon1, 453);
+lv_obj_set_height( ui_MountedIcon1, 502);
+lv_obj_set_align( ui_MountedIcon1, LV_ALIGN_CENTER );
+lv_obj_add_flag( ui_MountedIcon1, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
+lv_obj_clear_flag( ui_MountedIcon1, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_img_set_zoom(ui_MountedIcon1,15);
 
-ui_Label1 = lv_label_create(ui_ConnectScreen);
-lv_obj_set_width( ui_Label1, LV_SIZE_CONTENT);  /// 1
-lv_obj_set_height( ui_Label1, LV_SIZE_CONTENT);   /// 1
-lv_obj_set_x( ui_Label1, 0 );
-lv_obj_set_y( ui_Label1, -350 );
-lv_obj_set_align( ui_Label1, LV_ALIGN_CENTER );
-lv_label_set_text(ui_Label1,"Please connect your Zoka to your \nphone using the Mounted App");
-lv_obj_set_style_text_color(ui_Label1, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_text_opa(ui_Label1, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_align(ui_Label1, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_decor(ui_Label1, LV_TEXT_DECOR_NONE, LV_PART_MAIN| LV_STATE_DEFAULT);
-lv_obj_set_style_text_font(ui_Label1, &ui_font_Lexend32, LV_PART_MAIN| LV_STATE_DEFAULT);
+ui_Zoka = lv_img_create(ui_VisibleArea);
+lv_img_set_src(ui_Zoka, &ui_img_zoka_front_small_png);
+lv_obj_set_width( ui_Zoka, LV_SIZE_CONTENT);  /// 512
+lv_obj_set_height( ui_Zoka, LV_SIZE_CONTENT);   /// 278
+lv_obj_set_x( ui_Zoka, -180 );
+lv_obj_set_y( ui_Zoka, 0 );
+lv_obj_set_align( ui_Zoka, LV_ALIGN_CENTER );
+lv_obj_add_flag( ui_Zoka, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
+lv_obj_clear_flag( ui_Zoka, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_img_set_zoom(ui_Zoka,100);
+lv_obj_set_style_img_recolor(ui_Zoka, lv_color_hex(0xFF6900), LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_img_recolor_opa(ui_Zoka, 200, LV_PART_MAIN| LV_STATE_DEFAULT);
 
-ui_Spinner1 = lv_spinner_create(ui_ConnectScreen,1000,90);
-lv_obj_set_width( ui_Spinner1, 80);
-lv_obj_set_height( ui_Spinner1, 80);
-lv_obj_set_x( ui_Spinner1, 0 );
-lv_obj_set_y( ui_Spinner1, 269 );
-lv_obj_set_align( ui_Spinner1, LV_ALIGN_CENTER );
-lv_obj_clear_flag( ui_Spinner1, LV_OBJ_FLAG_CLICKABLE );    /// Flags
-lv_obj_set_style_arc_color(ui_Spinner1, lv_color_hex(0x4040FF), LV_PART_MAIN | LV_STATE_DEFAULT );
-lv_obj_set_style_arc_opa(ui_Spinner1, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+ui_Image2 = lv_img_create(ui_VisibleArea);
+lv_img_set_src(ui_Image2, &ui_img_285769805);
+lv_obj_set_width( ui_Image2, LV_SIZE_CONTENT);  /// 256
+lv_obj_set_height( ui_Image2, LV_SIZE_CONTENT);   /// 256
+lv_obj_set_align( ui_Image2, LV_ALIGN_CENTER );
+lv_obj_add_flag( ui_Image2, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
+lv_obj_clear_flag( ui_Image2, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+lv_img_set_zoom(ui_Image2,70);
+ui_object_set_themeable_style_property(ui_Image2, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_IMG_RECOLOR, _ui_theme_color_PRIMARY);
+ui_object_set_themeable_style_property(ui_Image2, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_IMG_RECOLOR_OPA, _ui_theme_alpha_PRIMARY);
 
-ui_object_set_themeable_style_property(ui_Spinner1, LV_PART_INDICATOR| LV_STATE_DEFAULT, LV_STYLE_ARC_COLOR, _ui_theme_color_PRIMARY);
-ui_object_set_themeable_style_property(ui_Spinner1, LV_PART_INDICATOR| LV_STATE_DEFAULT, LV_STYLE_ARC_OPA, _ui_theme_alpha_PRIMARY);
+ui_Label2 = lv_label_create(ui_VisibleArea);
+lv_obj_set_width( ui_Label2, LV_SIZE_CONTENT);  /// 1
+lv_obj_set_height( ui_Label2, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_x( ui_Label2, 0 );
+lv_obj_set_y( ui_Label2, -240 );
+lv_obj_set_align( ui_Label2, LV_ALIGN_CENTER );
+lv_label_set_text(ui_Label2,"Please connect your Zoka to your \nphone using the Mounted App");
+lv_obj_set_style_text_color(ui_Label2, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_text_opa(ui_Label2, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_align(ui_Label2, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_decor(ui_Label2, LV_TEXT_DECOR_NONE, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(ui_Label2, &ui_font_Lexend24, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+ui_Spinner2 = lv_spinner_create(ui_VisibleArea,1000,90);
+lv_obj_set_width( ui_Spinner2, 80);
+lv_obj_set_height( ui_Spinner2, 80);
+lv_obj_set_x( ui_Spinner2, 0 );
+lv_obj_set_y( ui_Spinner2, 240 );
+lv_obj_set_align( ui_Spinner2, LV_ALIGN_CENTER );
+lv_obj_clear_flag( ui_Spinner2, LV_OBJ_FLAG_CLICKABLE );    /// Flags
+lv_obj_set_style_arc_color(ui_Spinner2, lv_color_hex(0x4040FF), LV_PART_MAIN | LV_STATE_DEFAULT );
+lv_obj_set_style_arc_opa(ui_Spinner2, 0, LV_PART_MAIN| LV_STATE_DEFAULT);
+
+ui_object_set_themeable_style_property(ui_Spinner2, LV_PART_INDICATOR| LV_STATE_DEFAULT, LV_STYLE_ARC_COLOR, _ui_theme_color_PRIMARY);
+ui_object_set_themeable_style_property(ui_Spinner2, LV_PART_INDICATOR| LV_STATE_DEFAULT, LV_STYLE_ARC_OPA, _ui_theme_alpha_PRIMARY);
 
 }

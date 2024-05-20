@@ -116,10 +116,13 @@ extern "C"
         initArduino();
         ESP_LOGI(TAG, "Stared app_main");
         initLcdSpi();
-
-        gpio_set_level(ESP_POWER_EN, true); // setting the state before setting the gpio as output prevent gpio glitch
+        // pinMode(ESP_POWER_EN, OUTPUT);
+        gpio_set_level(ESP_POWER_EN, true); // setting the state before setting the gpio as output prevent gpio glitch, otherwise the ESP32 will suicide.
         gpio_set_direction(ESP_POWER_EN, GPIO_MODE_OUTPUT);
-
+        pinMode(ESP_POWER_EN, OUTPUT);
+        // gpio_set_drive_capability(ESP_POWER_EN, GPIO_DRIVE_CAP_3);
+        // digitalWrite(ESP_POWER_EN, HIGH);
+        gpio_set_level(ESP_POWER_EN, true);
         Wire.begin(I2C_SDA, I2C_SCL, 100000);
         MCP23017 MCP = MCP23017(MCP23017_ADDR, Wire);
         MCP.init();
@@ -343,6 +346,8 @@ extern "C"
         long buttonPressTime = 0;
         bool buttonPressed = false;
         bool switchh = false;
+        vTaskDelay(1000);
+        _ui_screen_change(&ui_ConnectScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_ConnectScreen_screen_init);
         while (1)
         {
             vTaskDelay(1);
@@ -363,6 +368,8 @@ extern "C"
                         delay(5);
                         MCP.digitalWrite(ENABLE_1_8V, LOW);
                         delay(5);
+                        gpio_set_level(ESP_POWER_EN, false);
+                        gpio_set_direction(ESP_POWER_EN, GPIO_MODE_INPUT);
                         digitalWrite(ESP_POWER_EN, LOW);
                         buttonPressed = false;
                     }
@@ -374,7 +381,7 @@ extern "C"
                             // lv_disp_load_scr(ui_MainScreen1);
                             // lv_scr_load_anim(ui_MainScreen1, LV_SCR_LOAD_ANIM_NONE, 0, 0, true);
                             // lv_obj_clean(lv_scr_act());
-                            _ui_screen_change(&ui_MainScreen1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_MainScreen1_screen_init);
+                            _ui_screen_change(&ui_MainScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_MainScreen_screen_init);
                             switchh = false;
                         }
                         else
