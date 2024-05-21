@@ -18,13 +18,19 @@
 #include "lvgl.h"
 
 #include "ui/ui.h"
+// #include "ui/components/ui_comp.h"
+#include "ui/components/ui_comp_statusbar.h"
 
 #include "MCP23017.h"
 #include "ECX334.hpp"
-#include "pins.hpp"
+#include "data_exchange.hpp"
+#include "hardware.hpp"
+#include "BLE_Hud_Service.hpp"
+
+// #include "pins.hpp"
 #include "lcd_parameters.h"
-#include "lcd_config.h"
-static const char *TAG = "example";
+
+static const char *TAG = "Zoka Main Task";
 
 static SemaphoreHandle_t lvgl_mux = NULL;
 // we use two semaphores to sync the VSYNC event and the LVGL task, to avoid potential tearing effect
@@ -32,8 +38,6 @@ static SemaphoreHandle_t lvgl_mux = NULL;
 SemaphoreHandle_t sem_vsync_end;
 SemaphoreHandle_t sem_gui_ready;
 #endif
-
-// extern void example_lvgl_demo_ui(lv_disp_t *disp);
 
 static bool example_on_vsync_event(esp_lcd_panel_handle_t panel, const esp_lcd_rgb_panel_event_data_t *event_data, void *user_data)
 {
@@ -87,11 +91,41 @@ static void example_lvgl_port_task(void *arg)
     ESP_LOGI(TAG, "Starting LVGL task");
     uint32_t task_delay_ms = EXAMPLE_LVGL_TASK_MAX_DELAY_MS;
     ui_init();
+
+    dataExchange *data_exchange = static_cast<dataExchange *>(arg);
     while (1)
     {
+        ESP_LOGI("lvgl", "time :%s", data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualTime).c_str());
         // Lock the mutex due to the LVGL APIs are not thread-safe
+
         if (example_lvgl_lock(-1))
         {
+            if (data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::dataRefreshed))
+            {
+                lv_bar_set_value(ui_ZokaBatteryBar1, std::stoi(data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualZokaBattery)), LV_ANIM_OFF);
+                lv_bar_set_value(ui_PhoneBatteryBar1, std::stoi(data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualPhoneBattery)), LV_ANIM_OFF);
+                lv_label_set_text(ui_PhoneBatteryPercent1, data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualPhoneBattery).c_str());
+                lv_label_set_text(ui_ZokaBatteryPercent1, data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualZokaBattery).c_str());
+                lv_label_set_text(ui_Time1, data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualTime).c_str());
+
+                lv_arc_set_value(ui_ArcSpeed1, std::stoi(data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualSpeed)));
+                lv_label_set_text(ui_SpeedLabel1, data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualSpeed).c_str());
+
+                lv_label_set_text(ui_SpeedLimitLabel1, "30");
+                lv_label_set_text(ui_RemainingDistance1, "0");
+                lv_label_set_text(ui_TimeRemaining1, "00:00");
+                lv_label_set_text(ui_TimeOfArival1, "00:00");
+
+                if (data_exchange->getNavigationModeVariable(&dataExchange::NavigationModeVariables::isConnected))
+                {
+                    _ui_screen_change(&ui_MainScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_MainScreen_screen_init);
+                }
+                else
+                {
+                    _ui_screen_change(&ui_ConnectScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_ConnectScreen_screen_init);
+                }
+                data_exchange->setNavigationModeVariable(&dataExchange::NavigationModeVariables::dataRefreshed, false);
+            }
             task_delay_ms = lv_timer_handler();
             // Release the mutex
             example_lvgl_unlock();
@@ -112,7 +146,8 @@ extern "C"
 {
     void app_main()
     {
-
+        dataExchange data_exchange;
+        BLE_Hud_Service ble_com_hud = BLE_Hud_Service(&data_exchange);
         initArduino();
         ESP_LOGI(TAG, "Stared app_main");
         initLcdSpi();
@@ -124,6 +159,7 @@ extern "C"
         // digitalWrite(ESP_POWER_EN, HIGH);
         gpio_set_level(ESP_POWER_EN, true);
         Wire.begin(I2C_SDA, I2C_SCL, 100000);
+
         MCP23017 MCP = MCP23017(MCP23017_ADDR, Wire);
         MCP.init();
         MCP.pinMode(BQ_CHARGE_STATUS, 1);
@@ -239,8 +275,8 @@ extern "C"
         lv_disp_draw_buf_init(&disp_buf, buf1, buf2, BUFFER_SIZE / sizeof(lv_color_t));
 #else
         ESP_LOGI(TAG, "Allocate separate LVGL draw buffers from PSRAM");
-        buf1 = heap_caps_malloc(BUFFER_SIZE, MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL);
-
+        buf1 = heap_caps_malloc(BUFFER_SIZE, MALLOC_CAP_SPIRAM);
+        // buf1 = heap_caps_malloc(BUFFER_SIZE, MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL);
         assert(buf1);
         // initialize LVGL draw buffers
         lv_disp_draw_buf_init(&disp_buf, buf1, buf2, BUFFER_SIZE / sizeof(lv_color_t));
@@ -274,7 +310,7 @@ extern "C"
         assert(lvgl_mux);
         // Lock the mutex due to the LVGL APIs are not thread-safe
         ESP_LOGI(TAG, "Create LVGL task");
-        xTaskCreate(example_lvgl_port_task, "LVGL", EXAMPLE_LVGL_TASK_STACK_SIZE, NULL, EXAMPLE_LVGL_TASK_PRIORITY, NULL);
+        xTaskCreate(example_lvgl_port_task, "LVGL", EXAMPLE_LVGL_TASK_STACK_SIZE, &data_exchange, EXAMPLE_LVGL_TASK_PRIORITY, NULL);
         pinMode(LCD_XCLR, OUTPUT);
         ESP_LOGI("LCD : ", "STARTING POWER ON SEQUENCE\n");
         // ESP_LOGI("LCD : ", "Init step 1\n");
@@ -323,7 +359,7 @@ extern "C"
         delay(1);
         writeSPIRegister(0X03, 0x00); // Was 0x20
         ESP_LOGI("LCD : ", "POWER ON SEQUENCE DONE\n");
-        byte data0X09 = readSPIRegister(0x09);
+        uint8_t data0X09 = readSPIRegister(0x09);
         ESP_LOGI(TAG, "Read data: 0x%02X", data0X09);
 
         writeSPIRegister(0X18, 0xFF);
@@ -334,7 +370,7 @@ extern "C"
         writeSPIRegister(0X05, 0x0F);
         writeSPIRegister(0X1D, 0xFF);
 
-        byte read_data = readSPIRegister(0X18);
+        uint8_t read_data = readSPIRegister(0X18);
         ESP_LOGI(TAG, "Brighness: 0x%02X", read_data);
         read_data = readSPIRegister(0X05);
         ESP_LOGI(TAG, "Luminance: 0x%02X", read_data);
@@ -346,12 +382,25 @@ extern "C"
         long buttonPressTime = 0;
         bool buttonPressed = false;
         bool switchh = false;
-        vTaskDelay(1000);
+
+        for (uint8_t i = 0; i <= 100; i++)
+        {
+            lv_bar_set_value(ui_BootBar, i, LV_ANIM_OFF);
+            vTaskDelay(10);
+        }
         _ui_screen_change(&ui_ConnectScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_ConnectScreen_screen_init);
+
+        HardwareTaskParameters hardwareTaskParameters{&Wire, &data_exchange};
+        xTaskCreate(hardwareTask, "batteryTask", 8192, &hardwareTaskParameters, 5, NULL);
+        ble_com_hud.initserviceUUID();
+        ble_com_hud.createService();
+
         while (1)
         {
             vTaskDelay(1);
+            // ESP_LOGI("dataExchange", "actualSpeed : %s", data_exchange.getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualTime).c_str());
 
+            ble_com_hud.hudconnected2(std::stoi(data_exchange.getNavigationModeVariable(&dataExchange::NavigationModeVariables::actualZokaBattery)));
             if (MCP.digitalRead(BUTTON_ENCODER) == false)
             {
                 if (!buttonPressed)
@@ -373,28 +422,20 @@ extern "C"
                         digitalWrite(ESP_POWER_EN, LOW);
                         buttonPressed = false;
                     }
-                    else if (millis() - buttonPressTime >= 300 && millis() - buttonPressTime <= 300)
-                    {
-                        if (switchh)
-                        {
-                            // lv_obj_del(lv_scr_act());
-                            // lv_disp_load_scr(ui_MainScreen1);
-                            // lv_scr_load_anim(ui_MainScreen1, LV_SCR_LOAD_ANIM_NONE, 0, 0, true);
-                            // lv_obj_clean(lv_scr_act());
-                            _ui_screen_change(&ui_MainScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_MainScreen_screen_init);
-                            switchh = false;
-                        }
-                        else
-                        {
-                            // lv_obj_del(lv_scr_act());
-                            // lv_disp_load_scr(ui_ConnectScreen);
-                            // lv_scr_load_anim(ui_ConnectScreen, LV_SCR_LOAD_ANIM_NONE, 0, 0, true);
-                            // lv_obj_clean(lv_scr_act());
-                            _ui_screen_change(&ui_ConnectScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_ConnectScreen_screen_init);
-                            switchh = true;
-                        }
-                        buttonPressed = false;
-                    }
+                    // else if (millis() - buttonPressTime >= 300 && millis() - buttonPressTime <= 300)
+                    // {
+                    //     if (switchh)
+                    //     {
+                    //         _ui_screen_change(&ui_MainScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_MainScreen_screen_init);
+                    //         switchh = false;
+                    //     }
+                    //     else
+                    //     {
+                    //         _ui_screen_change(&ui_ConnectScreen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_ConnectScreen_screen_init);
+                    //         switchh = true;
+                    //     }
+                    //     buttonPressed = false;
+                    // }
                 }
             }
             else

@@ -24,11 +24,23 @@ ui_object_set_themeable_style_property(cui_StatusBar, LV_PART_MAIN| LV_STATE_DEF
 ui_object_set_themeable_style_property(cui_StatusBar, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_BORDER_COLOR, _ui_theme_color_STATUSBARBG);
 ui_object_set_themeable_style_property(cui_StatusBar, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_BORDER_OPA, _ui_theme_alpha_STATUSBARBG);
 
+lv_obj_t *cui_ZokaBattContainer;
+cui_ZokaBattContainer = lv_obj_create(cui_StatusBar);
+lv_obj_remove_style_all(cui_ZokaBattContainer);
+lv_obj_set_width( cui_ZokaBattContainer, 144);
+lv_obj_set_height( cui_ZokaBattContainer, 132);
+lv_obj_set_x( cui_ZokaBattContainer, 1 );
+lv_obj_set_y( cui_ZokaBattContainer, 0 );
+lv_obj_set_align( cui_ZokaBattContainer, LV_ALIGN_CENTER );
+lv_obj_clear_flag( cui_ZokaBattContainer, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+
 lv_obj_t *cui_ZokaBatteryImage;
-cui_ZokaBatteryImage = lv_img_create(cui_StatusBar);
+cui_ZokaBatteryImage = lv_img_create(cui_ZokaBattContainer);
 lv_img_set_src(cui_ZokaBatteryImage, &ui_img_1513849953);
 lv_obj_set_width( cui_ZokaBatteryImage, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( cui_ZokaBatteryImage, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_y( cui_ZokaBatteryImage, 0 );
+lv_obj_set_x( cui_ZokaBatteryImage, lv_pct(-30) );
 lv_obj_set_align( cui_ZokaBatteryImage, LV_ALIGN_CENTER );
 lv_obj_add_flag( cui_ZokaBatteryImage, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
 lv_obj_clear_flag( cui_ZokaBatteryImage, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
@@ -51,6 +63,19 @@ lv_obj_set_style_radius(cui_ZokaBatteryBar, 0, LV_PART_INDICATOR| LV_STATE_DEFAU
 lv_obj_set_style_bg_color(cui_ZokaBatteryBar, lv_color_hex(0x48F633), LV_PART_INDICATOR | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_opa(cui_ZokaBatteryBar, 255, LV_PART_INDICATOR| LV_STATE_DEFAULT);
 
+lv_obj_t *cui_ZokaBatteryPercent;
+cui_ZokaBatteryPercent = lv_label_create(cui_ZokaBattContainer);
+lv_obj_set_width( cui_ZokaBatteryPercent, 70);
+lv_obj_set_height( cui_ZokaBatteryPercent, 24);
+lv_obj_set_y( cui_ZokaBatteryPercent, 1 );
+lv_obj_set_x( cui_ZokaBatteryPercent, lv_pct(7) );
+lv_obj_set_align( cui_ZokaBatteryPercent, LV_ALIGN_CENTER );
+lv_label_set_text(cui_ZokaBatteryPercent,"100");
+ui_object_set_themeable_style_property(cui_ZokaBatteryPercent, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_TEXT_COLOR, _ui_theme_color_STATUSBARPRIMARY);
+ui_object_set_themeable_style_property(cui_ZokaBatteryPercent, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_TEXT_OPA, _ui_theme_alpha_STATUSBARPRIMARY);
+lv_obj_set_style_text_align(cui_ZokaBatteryPercent, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(cui_ZokaBatteryPercent, &ui_font_Lexend24, LV_PART_MAIN| LV_STATE_DEFAULT);
+
 lv_obj_t *cui_Time;
 cui_Time = lv_label_create(cui_StatusBar);
 lv_obj_set_width( cui_Time, LV_SIZE_CONTENT);  /// 1
@@ -61,11 +86,21 @@ ui_object_set_themeable_style_property(cui_Time, LV_PART_MAIN| LV_STATE_DEFAULT,
 ui_object_set_themeable_style_property(cui_Time, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_TEXT_OPA, _ui_theme_alpha_STATUSBARPRIMARY);
 lv_obj_set_style_text_font(cui_Time, &ui_font_Lexend32, LV_PART_MAIN| LV_STATE_DEFAULT);
 
+lv_obj_t *cui_PhoneBattContainer;
+cui_PhoneBattContainer = lv_obj_create(cui_StatusBar);
+lv_obj_remove_style_all(cui_PhoneBattContainer);
+lv_obj_set_width( cui_PhoneBattContainer, 144);
+lv_obj_set_height( cui_PhoneBattContainer, 132);
+lv_obj_set_align( cui_PhoneBattContainer, LV_ALIGN_CENTER );
+lv_obj_clear_flag( cui_PhoneBattContainer, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+
 lv_obj_t *cui_PhoneBatteryImage;
-cui_PhoneBatteryImage = lv_img_create(cui_StatusBar);
+cui_PhoneBatteryImage = lv_img_create(cui_PhoneBattContainer);
 lv_img_set_src(cui_PhoneBatteryImage, &ui_img_1513849953);
 lv_obj_set_width( cui_PhoneBatteryImage, LV_SIZE_CONTENT);  /// 1
 lv_obj_set_height( cui_PhoneBatteryImage, LV_SIZE_CONTENT);   /// 1
+lv_obj_set_y( cui_PhoneBatteryImage, 0 );
+lv_obj_set_x( cui_PhoneBatteryImage, lv_pct(30) );
 lv_obj_set_align( cui_PhoneBatteryImage, LV_ALIGN_CENTER );
 lv_obj_add_flag( cui_PhoneBatteryImage, LV_OBJ_FLAG_ADV_HITTEST );   /// Flags
 lv_obj_clear_flag( cui_PhoneBatteryImage, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
@@ -88,13 +123,30 @@ lv_obj_set_style_radius(cui_PhoneBatteryBar, 0, LV_PART_INDICATOR| LV_STATE_DEFA
 lv_obj_set_style_bg_color(cui_PhoneBatteryBar, lv_color_hex(0x48F633), LV_PART_INDICATOR | LV_STATE_DEFAULT );
 lv_obj_set_style_bg_opa(cui_PhoneBatteryBar, 255, LV_PART_INDICATOR| LV_STATE_DEFAULT);
 
+lv_obj_t *cui_PhoneBatteryPercent;
+cui_PhoneBatteryPercent = lv_label_create(cui_PhoneBattContainer);
+lv_obj_set_width( cui_PhoneBatteryPercent, 70);
+lv_obj_set_height( cui_PhoneBatteryPercent, 24);
+lv_obj_set_y( cui_PhoneBatteryPercent, 1 );
+lv_obj_set_x( cui_PhoneBatteryPercent, lv_pct(-7) );
+lv_obj_set_align( cui_PhoneBatteryPercent, LV_ALIGN_CENTER );
+lv_label_set_text(cui_PhoneBatteryPercent,"100");
+ui_object_set_themeable_style_property(cui_PhoneBatteryPercent, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_TEXT_COLOR, _ui_theme_color_STATUSBARPRIMARY);
+ui_object_set_themeable_style_property(cui_PhoneBatteryPercent, LV_PART_MAIN| LV_STATE_DEFAULT, LV_STYLE_TEXT_OPA, _ui_theme_alpha_STATUSBARPRIMARY);
+lv_obj_set_style_text_align(cui_PhoneBatteryPercent, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN| LV_STATE_DEFAULT);
+lv_obj_set_style_text_font(cui_PhoneBatteryPercent, &ui_font_Lexend24, LV_PART_MAIN| LV_STATE_DEFAULT);
+
 lv_obj_t ** children = lv_mem_alloc(sizeof(lv_obj_t *) * _UI_COMP_STATUSBAR_NUM);
 children[UI_COMP_STATUSBAR_STATUSBAR] = cui_StatusBar;
-children[UI_COMP_STATUSBAR_ZOKABATTERYIMAGE] = cui_ZokaBatteryImage;
-children[UI_COMP_STATUSBAR_ZOKABATTERYIMAGE_ZOKABATTERYBAR] = cui_ZokaBatteryBar;
+children[UI_COMP_STATUSBAR_ZOKABATTCONTAINER] = cui_ZokaBattContainer;
+children[UI_COMP_STATUSBAR_ZOKABATTCONTAINER_ZOKABATTERYIMAGE] = cui_ZokaBatteryImage;
+children[UI_COMP_STATUSBAR_ZOKABATTCONTAINER_ZOKABATTERYIMAGE_ZOKABATTERYBAR] = cui_ZokaBatteryBar;
+children[UI_COMP_STATUSBAR_ZOKABATTCONTAINER_ZOKABATTERYPERCENT] = cui_ZokaBatteryPercent;
 children[UI_COMP_STATUSBAR_TIME] = cui_Time;
-children[UI_COMP_STATUSBAR_PHONEBATTERYIMAGE] = cui_PhoneBatteryImage;
-children[UI_COMP_STATUSBAR_PHONEBATTERYIMAGE_PHONEBATTERYBAR] = cui_PhoneBatteryBar;
+children[UI_COMP_STATUSBAR_PHONEBATTCONTAINER] = cui_PhoneBattContainer;
+children[UI_COMP_STATUSBAR_PHONEBATTCONTAINER_PHONEBATTERYIMAGE] = cui_PhoneBatteryImage;
+children[UI_COMP_STATUSBAR_PHONEBATTCONTAINER_PHONEBATTERYIMAGE_PHONEBATTERYBAR] = cui_PhoneBatteryBar;
+children[UI_COMP_STATUSBAR_PHONEBATTCONTAINER_PHONEBATTERYPERCENT] = cui_PhoneBatteryPercent;
 lv_obj_add_event_cb(cui_StatusBar, get_component_child_event_cb, LV_EVENT_GET_COMP_CHILD, children);
 lv_obj_add_event_cb(cui_StatusBar, del_component_child_event_cb, LV_EVENT_DELETE, children);
 ui_comp_StatusBar_create_hook(cui_StatusBar);
